@@ -60,7 +60,7 @@ namespace Transitions
         #region Private data
 
         // The list of transitions in the chain...
-        private LinkedList<Transition> _listTransitions = new LinkedList<Transition>();
+        private readonly LinkedList<Transition> _listTransitions = new LinkedList<Transition>();
 
         #endregion
     }

@@ -96,9 +96,9 @@ namespace Transitions
                 // Is this property part of the new transition?
                 foreach (Transition.TransitionedPropertyInfo newProperty in newProperties)
                 {
-                    if (oldProperty.target == newProperty.target
+                    if (oldProperty.Target == newProperty.Target
                         &&
-                        oldProperty.propertyInfo == newProperty.propertyInfo)
+                        oldProperty.PropertyInfo == newProperty.PropertyInfo)
                     {
                         // The old transition contains the same property as the new one,
                         // so we remove it from the old transition...
@@ -177,16 +177,16 @@ namespace Transitions
         private static TransitionManager _instance;
 
         // The collection of transitions we're managing. (This should really be a set.)
-        private IDictionary<Transition, bool> _transitions = new Dictionary<Transition, bool>();
+        private readonly IDictionary<Transition, bool> _transitions = new Dictionary<Transition, bool>();
 
         // The timer that controls the transition animation...
-        private Timer _timer;
+        private readonly Timer _timer;
 
         // An object to lock on. This class can be accessed by multiple threads: the 
         // user thread can add new transitions; and the timerr thread can be animating 
         // them. As they access the same collections, the methods need to be protected 
         // by a lock...
-        private object _lock = new object();
+        private readonly object _lock = new object();
 
         #endregion
     }

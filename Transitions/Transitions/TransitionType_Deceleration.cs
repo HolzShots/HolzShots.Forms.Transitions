@@ -55,7 +55,7 @@ namespace Transitions
 
 		#region Private data
 
-	    private double _transitionTime;
+	    private readonly double _transitionTime;
 
 	    #endregion
 	}
