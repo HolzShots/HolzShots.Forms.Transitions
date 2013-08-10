@@ -109,7 +109,7 @@ namespace Transitions
         /// </summary>
         public Transition(ITransitionType transitionMethod)
         {
-			m_TransitionMethod = transitionMethod;
+			_transitionMethod = transitionMethod;
         }
 
 		/// <summary>
@@ -216,7 +216,7 @@ namespace Transitions
             // b.
             double dPercentage;
             bool bCompleted;
-            m_TransitionMethod.OnTimer(iElapsedTime, out dPercentage, out bCompleted);
+            _transitionMethod.OnTimer(iElapsedTime, out dPercentage, out bCompleted);
 
             // We take a copy of the list of properties we are transitioning, as
             // they can be changed by another thread while this method is running...
@@ -362,7 +362,7 @@ namespace Transitions
 		#region Private data
 
 		// The transition method used by this transition...
-		private ITransitionType m_TransitionMethod = null;
+		private ITransitionType _transitionMethod;
 
 		// Holds information about one property on one taregt object that we are performing
 		// a transition on...

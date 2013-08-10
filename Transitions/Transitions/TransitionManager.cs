@@ -27,11 +27,11 @@ namespace Transitions
         /// </summary>
         public static TransitionManager getInstance()
         {
-            if (m_Instance == null)
+            if (_instance == null)
             {
-                m_Instance = new TransitionManager();
+                _instance = new TransitionManager();
             }
-            return m_Instance;
+            return _instance;
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace Transitions
         /// </summary>
         public void register(Transition transition)
         {
-            lock (m_Lock)
+            lock (_lock)
             {
                 // We check to see if the properties of this transition
                 // are already being animated by any existing transitions...
@@ -48,7 +48,7 @@ namespace Transitions
 
                 // We add the transition to the collection we manage, and 
                 // observe it so that we know when it has completed...
-                m_Transitions[transition] = true;
+                _transitions[transition] = true;
                 transition.TransitionCompletedEvent += onTransitionCompleted;
             }
         }
@@ -65,7 +65,7 @@ namespace Transitions
         private void removeDuplicates(Transition transition)
         {
             // We look through the set of transitions we're currently managing...
-            foreach (KeyValuePair<Transition, bool> pair in m_Transitions)
+            foreach (KeyValuePair<Transition, bool> pair in _transitions)
             {
                 removeDuplicates(transition, pair.Key);
             }
@@ -113,9 +113,9 @@ namespace Transitions
         /// </summary>
         private TransitionManager()
         {
-            m_Timer = new Timer(15);
-            m_Timer.Elapsed += onTimerElapsed;
-            m_Timer.Enabled = true;
+            _timer = new Timer(15);
+            _timer.Elapsed += onTimerElapsed;
+            _timer.Enabled = true;
         }
 
         /// <summary>
@@ -125,19 +125,19 @@ namespace Transitions
         {
             // We turn the timer off while we process the tick, in case the
             // actions take longer than the tick itself...
-            if (m_Timer == null)
+            if (_timer == null)
             {
                 return;
             }
-            m_Timer.Enabled = false;
+            _timer.Enabled = false;
 
             IList<Transition> listTransitions;
-            lock (m_Lock)
+            lock (_lock)
             {
                 // We take a copy of the collection of transitions as elements 
                 // might be removed as we iterate through it...
                 listTransitions = new List<Transition>();
-                foreach (KeyValuePair<Transition, bool> pair in m_Transitions)
+                foreach (KeyValuePair<Transition, bool> pair in _transitions)
                 {
                     listTransitions.Add(pair.Key);
                 }
@@ -150,7 +150,7 @@ namespace Transitions
             }
 
             // We restart the timer...
-            m_Timer.Enabled = true;
+            _timer.Enabled = true;
         }
 
         /// <summary>
@@ -163,9 +163,9 @@ namespace Transitions
             transition.TransitionCompletedEvent -= onTransitionCompleted;
 
             // We remove the transition from the collection we're managing...
-            lock (m_Lock)
+            lock (_lock)
             {
-                m_Transitions.Remove(transition);
+                _transitions.Remove(transition);
             }
         }
 
@@ -174,19 +174,19 @@ namespace Transitions
         #region Private data
 
         // The singleton instance...
-        private static TransitionManager m_Instance = null;
+        private static TransitionManager _instance;
 
         // The collection of transitions we're managing. (This should really be a set.)
-        private IDictionary<Transition, bool> m_Transitions = new Dictionary<Transition, bool>();
+        private IDictionary<Transition, bool> _transitions = new Dictionary<Transition, bool>();
 
         // The timer that controls the transition animation...
-        private Timer m_Timer = null;
+        private Timer _timer;
 
         // An object to lock on. This class can be accessed by multiple threads: the 
         // user thread can add new transitions; and the timerr thread can be animating 
         // them. As they access the same collections, the methods need to be protected 
         // by a lock...
-        private object m_Lock = new object();
+        private object _lock = new object();
 
         #endregion
     }

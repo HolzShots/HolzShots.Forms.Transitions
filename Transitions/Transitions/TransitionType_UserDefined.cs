@@ -189,13 +189,13 @@ namespace Transitions
         #region Private data
 
         // The collection of elements that make up the transition...
-        private IList<TransitionElement> _elements = null;
+        private IList<TransitionElement> _elements;
 
         // The total transition time...
-        private double _transitionTime = 0.0;
+        private double _transitionTime;
 
         // The element that we are currently in (i.e. the current time within this element)...
-        private int _currentElement = 0;
+        private int _currentElement;
 
         #endregion
     }
