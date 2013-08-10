@@ -76,7 +76,7 @@ namespace Transitions
         /// </summary>
         public static void Run(object target, string strPropertyName, object destinationValue, ITransitionType transitionMethod)
         {
-            Transition t = new Transition(transitionMethod);
+            var t = new Transition(transitionMethod);
             t.Add(target, strPropertyName, destinationValue);
             t.Run();
         }
@@ -96,7 +96,7 @@ namespace Transitions
         /// </summary>
         public static void RunChain(params Transition[] transitions)
         {
-            TransitionChain chain = new TransitionChain(transitions);
+            var c = new TransitionChain(transitions);
         }
 
         #endregion
@@ -142,13 +142,15 @@ namespace Transitions
             
             // We can manage this type, so we store the information for the
 			// transition of this property...
-			TransitionedPropertyInfo info = new TransitionedPropertyInfo();
-			info.EndValue = destinationValue;
-			info.Target = target;
-			info.PropertyInfo = propertyInfo;
-			info.ManagedType = managedType;
+			var info = new TransitionedPropertyInfo
+			           {
+			               EndValue = destinationValue,
+			               Target = target,
+			               PropertyInfo = propertyInfo,
+			               ManagedType = managedType
+			           };
 
-            lock (_lock)
+		    lock (_lock)
             {
                 _listTransitionedProperties.Add(info);
             }
@@ -161,9 +163,9 @@ namespace Transitions
         {
             // We find the current start values for the properties we 
             // are animating...
-            foreach (TransitionedPropertyInfo info in _listTransitionedProperties)
+            foreach (var info in _listTransitionedProperties)
             {
-                object value = info.PropertyInfo.GetValue(info.Target, null);
+                var value = info.PropertyInfo.GetValue(info.Target, null);
                 info.StartValue = info.ManagedType.Copy(value);
             }
 
@@ -233,10 +235,10 @@ namespace Transitions
             foreach (TransitionedPropertyInfo info in listTransitionedProperties)
             {
                 // We get the current value for this property...
-                object value = info.ManagedType.GetIntermediateValue(info.StartValue, info.EndValue, dPercentage);
+                var value = info.ManagedType.GetIntermediateValue(info.StartValue, info.EndValue, dPercentage);
 
                 // We set it...
-                PropertyUpdateArgs args = new PropertyUpdateArgs(info.Target, info.PropertyInfo, value);
+                var args = new PropertyUpdateArgs(info.Target, info.PropertyInfo, value);
                 SetProperty(this, args);
             }
 
@@ -272,7 +274,7 @@ namespace Transitions
                     return;
                 }
 
-                ISynchronizeInvoke invokeTarget = args.Target as ISynchronizeInvoke;
+                var invokeTarget = args.Target as ISynchronizeInvoke;
                 if (invokeTarget != null && invokeTarget.InvokeRequired)
                 {
                     // There is some history behind the next two lines, which is worth
@@ -326,7 +328,7 @@ namespace Transitions
         private bool IsDisposed(object target)
         {
             // Is the object passed in a Control?
-            Control controlTarget = target as Control;
+            var controlTarget = target as Control;
             if (controlTarget == null)
             {
                 return false;
@@ -345,7 +347,7 @@ namespace Transitions
 		/// </summary>
 		private static void RegisterType(IManagedType transitionType)
 		{
-			Type type = transitionType.GetManagedType();
+			var type = transitionType.GetManagedType();
 			MapManagedTypes[type] = transitionType;
 		}
 
@@ -376,12 +378,14 @@ namespace Transitions
 
             public TransitionedPropertyInfo Copy()
             {
-                var info = new TransitionedPropertyInfo();
-                info.StartValue = StartValue;
-                info.EndValue = EndValue;
-                info.Target = Target;
-                info.PropertyInfo = PropertyInfo;
-                info.ManagedType = ManagedType;
+                var info = new TransitionedPropertyInfo
+                           {
+                               StartValue = StartValue,
+                               EndValue = EndValue,
+                               Target = Target,
+                               PropertyInfo = PropertyInfo,
+                               ManagedType = ManagedType
+                           };
                 return info;
             }
 		}

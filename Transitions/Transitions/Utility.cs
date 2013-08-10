@@ -121,7 +121,7 @@ namespace Transitions
             {
                 try
                 {
-                    ISynchronizeInvoke target = handler.Target as ISynchronizeInvoke;
+                    var target = handler.Target as ISynchronizeInvoke;
                     if (target == null || !target.InvokeRequired)
                     {
                         // Either the target is not a form or control, or we are already

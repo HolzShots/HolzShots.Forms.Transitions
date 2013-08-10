@@ -23,7 +23,7 @@ namespace Transitions
         /// </summary>
         public object Copy(object o)
         {
-            string s = (string)o;
+            var s = (string)o;
             return new string(s.ToCharArray());
         }
 
@@ -32,14 +32,14 @@ namespace Transitions
         /// </summary>
         public object GetIntermediateValue(object start, object end, double dPercentage)
         {
-            string strStart = (string)start;
-            string strEnd = (string)end;
+            var strStart = (string)start;
+            var strEnd = (string)end;
 
             // We find the length of the interpolated string...
             int iStartLength = strStart.Length;
             int iEndLength = strEnd.Length;
             int iLength = Utility.Interpolate(iStartLength, iEndLength, dPercentage);
-            char[] result = new char[iLength];
+            var result = new char[iLength];
 
             // Now we assign the letters of the results by interpolating the
             // letters from the start and end strings...

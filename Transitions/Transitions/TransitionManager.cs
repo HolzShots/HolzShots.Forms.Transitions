@@ -27,11 +27,7 @@ namespace Transitions
         /// </summary>
         public static TransitionManager getInstance()
         {
-            if (_instance == null)
-            {
-                _instance = new TransitionManager();
-            }
-            return _instance;
+            return _instance ?? (_instance = new TransitionManager());
         }
 
         /// <summary>

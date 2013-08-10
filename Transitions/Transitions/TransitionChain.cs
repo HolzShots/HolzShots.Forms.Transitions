@@ -46,7 +46,7 @@ namespace Transitions
         private void OnTransitionCompleted(object sender, Transition.Args e)
         {
             // We unregister from the completed event...
-            Transition transition = (Transition)sender;
+            var transition = (Transition)sender;
             transition.TransitionCompletedEvent -= OnTransitionCompleted;
 
             // We remove the completed transition from our collection, and

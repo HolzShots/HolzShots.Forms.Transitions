@@ -24,8 +24,8 @@ namespace Transitions
 		/// </summary>
 		public object Copy(object o)
 		{
-			Color c = (Color)o;
-			Color result = Color.FromArgb(c.ToArgb());
+			var c = (Color)o;
+			var result = Color.FromArgb(c.ToArgb());
 			return result;
 		}
 
@@ -34,8 +34,8 @@ namespace Transitions
 		/// </summary>
 		public object GetIntermediateValue(object start, object end, double dPercentage)
 		{
-			Color startColor = (Color)start;
-			Color endColor = (Color)end;
+			var startColor = (Color)start;
+			var endColor = (Color)end;
 
 			// We interpolate the R, G, B and A components separately...
 			int iStart_R = startColor.R;
