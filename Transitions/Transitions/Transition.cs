@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Reflection;
-using System.Timers;
 using System.Diagnostics;
 using System.Windows.Forms;
 using System.ComponentModel;
@@ -124,14 +122,14 @@ namespace Transitions
 			PropertyInfo propertyInfo = targetType.GetProperty(strPropertyName);
 			if (propertyInfo == null)
 			{
-				throw new Exception("Object: " + target.ToString() + " does not have the property: " + strPropertyName);
+				throw new Exception("Object: " + target + " does not have the property: " + strPropertyName);
 			}
 
 			// We check that we support the property type...
 			Type propertyType = propertyInfo.PropertyType;
 			if (m_mapManagedTypes.ContainsKey(propertyType) == false)
 			{
-				throw new Exception("Transition does not handle properties of type: " + propertyType.ToString());
+				throw new Exception("Transition does not handle properties of type: " + propertyType);
 			}
 
             // We can only transition properties that are both getable and setable...
@@ -243,7 +241,7 @@ namespace Transitions
             }
 
             // Has the transition completed?
-            if (bCompleted == true)
+            if (bCompleted)
             {
                 // We stop the stopwatch and the timer...
                 _stopwatch.Stop();
@@ -269,7 +267,7 @@ namespace Transitions
                 // If the target is a control that has been disposed then we don't 
                 // try to update its proeprties. This can happen if the control is
                 // on a form that has been closed while the transition is running...
-                if (IsDisposed(args.target) == true)
+                if (IsDisposed(args.target))
                 {
                     return;
                 }
@@ -304,7 +302,7 @@ namespace Transitions
                     // the UI a chance to process the update. So what we do is to do the
                     // asynchronous BeginInvoke, but then wait (with a short timeout) for
                     // it to complete.
-                    IAsyncResult asyncResult = invokeTarget.BeginInvoke(new EventHandler<PropertyUpdateArgs>(SetProperty), new object[] { sender, args });
+                    IAsyncResult asyncResult = invokeTarget.BeginInvoke(new EventHandler<PropertyUpdateArgs>(SetProperty), new [] { sender, args });
                     asyncResult.AsyncWaitHandle.WaitOne(50);
                 }
                 else
@@ -335,14 +333,7 @@ namespace Transitions
             }
 
             // Is it disposed or disposing?
-            if (controlTarget.IsDisposed == true || controlTarget.Disposing)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return controlTarget.IsDisposed || controlTarget.Disposing;
         }
 
 		#endregion

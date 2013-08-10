@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Transitions
 {
@@ -36,7 +34,7 @@ namespace Transitions
                 elements.Add(new TransitionElement(dFlashEndTime, 0, InterpolationMethod.EaseInEaseOut));
             }
 
-            base.Setup(elements, iFlashTime * iNumberOfFlashes);
+            Setup(elements, iFlashTime * iNumberOfFlashes);
         }
 
         #endregion

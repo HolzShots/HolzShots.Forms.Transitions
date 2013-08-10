@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Transitions
 {
@@ -22,7 +20,7 @@ namespace Transitions
             IList<TransitionElement> elements = new List<TransitionElement>();
             elements.Add(new TransitionElement(50, 100, InterpolationMethod.Accleration));
             elements.Add(new TransitionElement(100, 0, InterpolationMethod.Deceleration));
-            base.Setup(elements, iTransitionTime);
+            Setup(elements, iTransitionTime);
         }
 
         #endregion

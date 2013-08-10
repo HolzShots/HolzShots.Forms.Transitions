@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Reflection;
 using System.ComponentModel;
 
@@ -20,7 +18,7 @@ namespace Transitions
             PropertyInfo propertyInfo = targetType.GetProperty(strPropertyName);
             if (propertyInfo == null)
             {
-                throw new Exception("Object: " + target.ToString() + " does not have the property: " + strPropertyName);
+                throw new Exception("Object: " + target + " does not have the property: " + strPropertyName);
             }
             return propertyInfo.GetValue(target, null);
         }
@@ -34,7 +32,7 @@ namespace Transitions
             PropertyInfo propertyInfo = targetType.GetProperty(strPropertyName);
             if (propertyInfo == null)
             {
-                throw new Exception("Object: " + target.ToString() + " does not have the property: " + strPropertyName);
+                throw new Exception("Object: " + target + " does not have the property: " + strPropertyName);
             }
             propertyInfo.SetValue(target, value, null);
         }
@@ -55,7 +53,7 @@ namespace Transitions
         /// </summary>
         public static int Interpolate(int i1, int i2, double dPercentage)
         {
-            return (int)Interpolate((double)i1, (double)i2, dPercentage);
+            return (int)Interpolate((double)i1, i2, dPercentage);
         }
     
         /// <summary>
@@ -63,7 +61,7 @@ namespace Transitions
         /// </summary>
         public static float Interpolate(float f1, float f2, double dPercentage)
         {
-            return (float)Interpolate((double)f1, (double)f2, dPercentage);
+            return (float)Interpolate((double)f1, f2, dPercentage);
         }
 
         /// <summary>
@@ -108,7 +106,7 @@ namespace Transitions
         /// or we are on the same thread as the target, then the event is fired on the same
         /// thread as this is called from.
         /// </remarks>
-        public static void RaiseEvent<T>(EventHandler<T> theEvent, object sender, T args) where T : System.EventArgs
+        public static void RaiseEvent<T>(EventHandler<T> theEvent, object sender, T args) where T : EventArgs
         {
             // Is the event set up?
             if (theEvent == null)
@@ -124,7 +122,7 @@ namespace Transitions
                 try
                 {
                     ISynchronizeInvoke target = handler.Target as ISynchronizeInvoke;
-                    if (target == null || target.InvokeRequired == false)
+                    if (target == null || !target.InvokeRequired)
                     {
                         // Either the target is not a form or control, or we are already
                         // on the right thread for it. Either way we can just fire the
@@ -135,7 +133,7 @@ namespace Transitions
                     {
                         // The target is most likely a form or control that needs the
                         // handler to be invoked on its own thread...
-                        target.BeginInvoke(handler, new object[] { sender, args });
+                        target.BeginInvoke(handler, new [] { sender, args });
                     }
                 }
                 catch (Exception)
