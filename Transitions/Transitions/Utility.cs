@@ -14,7 +14,7 @@ namespace Transitions
         /// <summary>
         /// Returns the value of the property passed in.
         /// </summary>
-        public static object getValue(object target, string strPropertyName)
+        public static object GetValue(object target, string strPropertyName)
         {
             Type targetType = target.GetType();
             PropertyInfo propertyInfo = targetType.GetProperty(strPropertyName);
@@ -28,7 +28,7 @@ namespace Transitions
         /// <summary>
         /// Sets the value of the property passed in.
         /// </summary>
-        public static void setValue(object target, string strPropertyName, object value)
+        public static void SetValue(object target, string strPropertyName, object value)
         {
             Type targetType = target.GetType();
             PropertyInfo propertyInfo = targetType.GetProperty(strPropertyName);
@@ -42,7 +42,7 @@ namespace Transitions
 		/// <summary>
 		/// Returns a value between d1 and d2 for the percentage passed in.
 		/// </summary>
-		public static double interpolate(double d1, double d2, double dPercentage)
+		public static double Interpolate(double d1, double d2, double dPercentage)
 		{
 			double dDifference = d2 - d1;
 			double dDistance = dDifference * dPercentage;
@@ -53,24 +53,24 @@ namespace Transitions
         /// <summary>
         /// Returns a value betweeen i1 and i2 for the percentage passed in.
         /// </summary>
-        public static int interpolate(int i1, int i2, double dPercentage)
+        public static int Interpolate(int i1, int i2, double dPercentage)
         {
-            return (int)interpolate((double)i1, (double)i2, dPercentage);
+            return (int)Interpolate((double)i1, (double)i2, dPercentage);
         }
     
         /// <summary>
         /// Returns a value betweeen f1 and f2 for the percentage passed in.
         /// </summary>
-        public static float interpolate(float f1, float f2, double dPercentage)
+        public static float Interpolate(float f1, float f2, double dPercentage)
         {
-            return (float)interpolate((double)f1, (double)f2, dPercentage);
+            return (float)Interpolate((double)f1, (double)f2, dPercentage);
         }
 
         /// <summary>
         /// Converts a fraction representing linear time to a fraction representing
         /// the distance traveled under an ease-in-ease-out transition.
         /// </summary>
-        public static double convertLinearToEaseInEaseOut(double dElapsed)
+        public static double ConvertLinearToEaseInEaseOut(double dElapsed)
         {
             // The distance traveled is made up of two parts: the initial acceleration,
             // and then the subsequent deceleration...
@@ -84,7 +84,7 @@ namespace Transitions
         /// Converts a fraction representing linear time to a fraction representing
         /// the distance traveled under a constant acceleration transition.
         /// </summary>
-        public static double convertLinearToAcceleration(double dElapsed)
+        public static double ConvertLinearToAcceleration(double dElapsed)
         {
             return dElapsed * dElapsed;
         }
@@ -93,7 +93,7 @@ namespace Transitions
         /// Converts a fraction representing linear time to a fraction representing
         /// the distance traveled under a constant deceleration transition.
         /// </summary>
-        public static double convertLinearToDeceleration(double dElapsed)
+        public static double ConvertLinearToDeceleration(double dElapsed)
         {
             return dElapsed * (2.0 - dElapsed);
         }
@@ -108,7 +108,7 @@ namespace Transitions
         /// or we are on the same thread as the target, then the event is fired on the same
         /// thread as this is called from.
         /// </remarks>
-        public static void raiseEvent<T>(EventHandler<T> theEvent, object sender, T args) where T : System.EventArgs
+        public static void RaiseEvent<T>(EventHandler<T> theEvent, object sender, T args) where T : System.EventArgs
         {
             // Is the event set up?
             if (theEvent == null)

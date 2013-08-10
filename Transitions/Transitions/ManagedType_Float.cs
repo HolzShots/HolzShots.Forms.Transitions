@@ -11,7 +11,7 @@ namespace Transitions
         /// <summary>
         /// Returns the type we're managing.
         /// </summary>
-        public Type getManagedType()
+        public Type GetManagedType()
         {
             return typeof(float);
         }
@@ -19,7 +19,7 @@ namespace Transitions
         /// <summary>
         /// Returns a copy of the float passed in.
         /// </summary>
-        public object copy(object o)
+        public object Copy(object o)
         {
             float f = (float)o;
             return f;
@@ -28,11 +28,11 @@ namespace Transitions
         /// <summary>
         /// Returns the interpolated value for the percentage passed in.
         /// </summary>
-        public object getIntermediateValue(object start, object end, double dPercentage)
+        public object GetIntermediateValue(object start, object end, double dPercentage)
         {
             float fStart = (float)start;
             float fEnd = (float)end;
-            return Utility.interpolate(fStart, fEnd, dPercentage);
+            return Utility.Interpolate(fStart, fEnd, dPercentage);
         }
 
         #endregion

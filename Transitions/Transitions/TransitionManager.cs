@@ -104,7 +104,7 @@ namespace Transitions
                     {
                         // The old transition contains the same property as the new one,
                         // so we remove it from the old transition...
-                        oldTransition.removeProperty(oldProperty);
+                        oldTransition.RemoveProperty(oldProperty);
                     }
                 }
             }
@@ -148,7 +148,7 @@ namespace Transitions
             // We tick the timer for each transition we're managing...
             foreach (Transition transition in listTransitions)
             {
-                transition.onTimer();
+                transition.OnTimer();
             }
 
             // We restart the timer...

@@ -22,7 +22,7 @@ namespace Transitions
 			{
 				throw new Exception("Transition time must be greater than zero.");
 			}
-			m_dTransitionTime = iTransitionTime;
+			_transitionTime = iTransitionTime;
         }
 
         #endregion
@@ -32,9 +32,9 @@ namespace Transitions
 		/// <summary>
 		/// We return the percentage completed.
 		/// </summary>
-		public void onTimer(int iTime, out double dPercentage, out bool bCompleted)
+		public void OnTimer(int iTime, out double dPercentage, out bool bCompleted)
 		{
-			dPercentage = (iTime / m_dTransitionTime);
+			dPercentage = (iTime / _transitionTime);
 			if (dPercentage >= 1.0)
 			{
 				dPercentage = 1.0;
@@ -50,7 +50,7 @@ namespace Transitions
 
 		#region Private data
 
-		private double m_dTransitionTime = 0.0;
+		private double _transitionTime = 0.0;
 
 		#endregion
 	}

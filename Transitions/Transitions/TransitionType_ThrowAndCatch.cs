@@ -22,7 +22,7 @@ namespace Transitions
             IList<TransitionElement> elements = new List<TransitionElement>();
             elements.Add(new TransitionElement(50, 100, InterpolationMethod.Deceleration));
             elements.Add(new TransitionElement(100, 0, InterpolationMethod.Accleration));
-            base.setup(elements, iTransitionTime);
+            base.Setup(elements, iTransitionTime);
         }
 
         #endregion

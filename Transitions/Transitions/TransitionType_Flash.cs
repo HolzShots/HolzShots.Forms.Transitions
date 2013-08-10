@@ -36,7 +36,7 @@ namespace Transitions
                 elements.Add(new TransitionElement(dFlashEndTime, 0, InterpolationMethod.EaseInEaseOut));
             }
 
-            base.setup(elements, iFlashTime * iNumberOfFlashes);
+            base.Setup(elements, iFlashTime * iNumberOfFlashes);
         }
 
         #endregion

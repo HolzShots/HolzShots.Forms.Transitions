@@ -15,7 +15,7 @@ namespace Transitions
         /// <summary>
         /// Returns the type we're managing.
         /// </summary>
-        public Type getManagedType()
+        public Type GetManagedType()
         {
             return typeof(string);
         }
@@ -23,7 +23,7 @@ namespace Transitions
         /// <summary>
         /// Returns a copy of the string passed in.
         /// </summary>
-        public object copy(object o)
+        public object Copy(object o)
         {
             string s = (string)o;
             return new string(s.ToCharArray());
@@ -32,7 +32,7 @@ namespace Transitions
         /// <summary>
         /// Returns an "interpolated" string.
         /// </summary>
-        public object getIntermediateValue(object start, object end, double dPercentage)
+        public object GetIntermediateValue(object start, object end, double dPercentage)
         {
             string strStart = (string)start;
             string strEnd = (string)end;
@@ -40,7 +40,7 @@ namespace Transitions
             // We find the length of the interpolated string...
             int iStartLength = strStart.Length;
             int iEndLength = strEnd.Length;
-            int iLength = Utility.interpolate(iStartLength, iEndLength, dPercentage);
+            int iLength = Utility.Interpolate(iStartLength, iEndLength, dPercentage);
             char[] result = new char[iLength];
 
             // Now we assign the letters of the results by interpolating the
@@ -72,7 +72,7 @@ namespace Transitions
 					// The end character is not a space, so we interpolate...
 					int iStart = Convert.ToInt32(cStart);
 					int iEnd = Convert.ToInt32(cEnd);
-					int iInterpolated = Utility.interpolate(iStart, iEnd, dPercentage);
+					int iInterpolated = Utility.Interpolate(iStart, iEnd, dPercentage);
 					cInterpolated = Convert.ToChar(iInterpolated);
 				}
 

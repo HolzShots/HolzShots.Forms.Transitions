@@ -22,7 +22,7 @@ namespace Transitions
 			{
 				throw new Exception("Transition time must be greater than zero.");
 			}
-			m_dTransitionTime = iTransitionTime;
+			_transitionTime = iTransitionTime;
 		}
 
 		#endregion
@@ -36,11 +36,11 @@ namespace Transitions
 		/// We accelerate as at the rate needed (a=4) to get to 0.5 at t=0.5, and
 		/// then decelerate at the same rate to end up at 1.0 at t=1.0.
 		/// </summary>
-		public void onTimer(int iTime, out double dPercentage, out bool bCompleted)
+		public void OnTimer(int iTime, out double dPercentage, out bool bCompleted)
 		{
 			// We find the percentage time elapsed...
-			double dElapsed = iTime / m_dTransitionTime;
-            dPercentage = Utility.convertLinearToEaseInEaseOut(dElapsed);
+			double dElapsed = iTime / _transitionTime;
+            dPercentage = Utility.ConvertLinearToEaseInEaseOut(dElapsed);
 
 			if (dElapsed >= 1.0)
 			{
@@ -57,7 +57,7 @@ namespace Transitions
 
 		#region Private data
 
-		private double m_dTransitionTime = 0.0;
+		private double _transitionTime = 0.0;
 
 		#endregion
 	}

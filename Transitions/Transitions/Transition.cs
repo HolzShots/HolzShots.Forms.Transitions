@@ -46,11 +46,11 @@ namespace Transitions
         /// </summary>
         static Transition()
         {
-            registerType(new ManagedType_Int());
-            registerType(new ManagedType_Float());
-			registerType(new ManagedType_Double());
-            registerType(new ManagedType_Color());
-            registerType(new ManagedType_String());
+            RegisterType(new ManagedType_Int());
+            RegisterType(new ManagedType_Float());
+			RegisterType(new ManagedType_Double());
+            RegisterType(new ManagedType_Color());
+            RegisterType(new ManagedType_String());
         }
 
         #endregion
@@ -76,27 +76,27 @@ namespace Transitions
         /// <summary>
         /// Creates and immediately runs a transition on the property passed in.
         /// </summary>
-        public static void run(object target, string strPropertyName, object destinationValue, ITransitionType transitionMethod)
+        public static void Run(object target, string strPropertyName, object destinationValue, ITransitionType transitionMethod)
         {
             Transition t = new Transition(transitionMethod);
-            t.add(target, strPropertyName, destinationValue);
-            t.run();
+            t.Add(target, strPropertyName, destinationValue);
+            t.Run();
         }
 
         /// <summary>
         /// Sets the property passed in to the initial value passed in, then creates and 
         /// immediately runs a transition on it.
         /// </summary>
-        public static void run(object target, string strPropertyName, object initialValue, object destinationValue, ITransitionType transitionMethod)
+        public static void Run(object target, string strPropertyName, object initialValue, object destinationValue, ITransitionType transitionMethod)
         {
-            Utility.setValue(target, strPropertyName, initialValue);
-            run(target, strPropertyName, destinationValue, transitionMethod);
+            Utility.SetValue(target, strPropertyName, initialValue);
+            Run(target, strPropertyName, destinationValue, transitionMethod);
         }
 
         /// <summary>
         /// Creates a TransitionChain and runs it.
         /// </summary>
-        public static void runChain(params Transition[] transitions)
+        public static void RunChain(params Transition[] transitions)
         {
             TransitionChain chain = new TransitionChain(transitions);
         }
@@ -117,7 +117,7 @@ namespace Transitions
 		/// <summary>
 		/// Adds a property that should be animated as part of this transition.
 		/// </summary>
-		public void add(object target, string strPropertyName, object destinationValue)
+		public void Add(object target, string strPropertyName, object destinationValue)
 		{
 			// We get the property info...
 			Type targetType = target.GetType();
@@ -150,29 +150,29 @@ namespace Transitions
 			info.propertyInfo = propertyInfo;
 			info.managedType = managedType;
 
-            lock (m_Lock)
+            lock (_lock)
             {
-                m_listTransitionedProperties.Add(info);
+                _listTransitionedProperties.Add(info);
             }
 		}
 
         /// <summary>
         /// Starts the transition.
         /// </summary>
-        public void run()
+        public void Run()
         {
             // We find the current start values for the properties we 
             // are animating...
-            foreach (TransitionedPropertyInfo info in m_listTransitionedProperties)
+            foreach (TransitionedPropertyInfo info in _listTransitionedProperties)
             {
                 object value = info.propertyInfo.GetValue(info.target, null);
-                info.startValue = info.managedType.copy(value);
+                info.startValue = info.managedType.Copy(value);
             }
 
 			// We start the stopwatch. We use this when the timer ticks to measure 
 			// how long the transition has been runnning for...
-			m_Stopwatch.Reset();
-			m_Stopwatch.Start();
+			_stopwatch.Reset();
+			_stopwatch.Start();
 
             // We register this transition with the transition manager...
             TransitionManager.getInstance().register(this);
@@ -188,24 +188,24 @@ namespace Transitions
         /// </summary>
         internal IList<TransitionedPropertyInfo> TransitionedProperties
         {
-            get { return m_listTransitionedProperties; }
+            get { return _listTransitionedProperties; }
         }
 
         /// <summary>
         /// We remove the property with the info passed in from the transition.
         /// </summary>
-        internal void removeProperty(TransitionedPropertyInfo info)
+        internal void RemoveProperty(TransitionedPropertyInfo info)
         {
-            lock (m_Lock)
+            lock (_lock)
             {
-                m_listTransitionedProperties.Remove(info);
+                _listTransitionedProperties.Remove(info);
             }
         }
 
         /// <summary>
         /// Called when the transition timer ticks.
         /// </summary>
-        internal void onTimer()
+        internal void OnTimer()
         {
             // When the timer ticks we:
             // a. Find the elapsed time since the transition started.
@@ -213,19 +213,19 @@ namespace Transitions
             // c. Find the actual values of each property, and set them.
 
             // a.
-            int iElapsedTime = (int)m_Stopwatch.ElapsedMilliseconds;
+            int iElapsedTime = (int)_stopwatch.ElapsedMilliseconds;
 
             // b.
             double dPercentage;
             bool bCompleted;
-            m_TransitionMethod.onTimer(iElapsedTime, out dPercentage, out bCompleted);
+            m_TransitionMethod.OnTimer(iElapsedTime, out dPercentage, out bCompleted);
 
             // We take a copy of the list of properties we are transitioning, as
             // they can be changed by another thread while this method is running...
             IList<TransitionedPropertyInfo> listTransitionedProperties = new List<TransitionedPropertyInfo>();
-            lock (m_Lock)
+            lock (_lock)
             {
-                foreach (TransitionedPropertyInfo info in m_listTransitionedProperties)
+                foreach (TransitionedPropertyInfo info in _listTransitionedProperties)
                 {
                     listTransitionedProperties.Add(info.copy());
                 }
@@ -235,21 +235,21 @@ namespace Transitions
             foreach (TransitionedPropertyInfo info in listTransitionedProperties)
             {
                 // We get the current value for this property...
-                object value = info.managedType.getIntermediateValue(info.startValue, info.endValue, dPercentage);
+                object value = info.managedType.GetIntermediateValue(info.startValue, info.endValue, dPercentage);
 
                 // We set it...
                 PropertyUpdateArgs args = new PropertyUpdateArgs(info.target, info.propertyInfo, value);
-                setProperty(this, args);
+                SetProperty(this, args);
             }
 
             // Has the transition completed?
             if (bCompleted == true)
             {
                 // We stop the stopwatch and the timer...
-                m_Stopwatch.Stop();
+                _stopwatch.Stop();
 
                 // We raise an event to notify any observers that the transition has completed...
-                Utility.raiseEvent(TransitionCompletedEvent, this, new Args());
+                Utility.RaiseEvent(TransitionCompletedEvent, this, new Args());
             }
         }
 
@@ -262,14 +262,14 @@ namespace Transitions
 		/// invokes itself on the GUI thread if the property is being invoked on a GUI 
 		/// object.
 		/// </summary>
-		private void setProperty(object sender, PropertyUpdateArgs args)
+		private void SetProperty(object sender, PropertyUpdateArgs args)
 		{
             try
             {
                 // If the target is a control that has been disposed then we don't 
                 // try to update its proeprties. This can happen if the control is
                 // on a form that has been closed while the transition is running...
-                if (isDisposed(args.target) == true)
+                if (IsDisposed(args.target) == true)
                 {
                     return;
                 }
@@ -304,7 +304,7 @@ namespace Transitions
                     // the UI a chance to process the update. So what we do is to do the
                     // asynchronous BeginInvoke, but then wait (with a short timeout) for
                     // it to complete.
-                    IAsyncResult asyncResult = invokeTarget.BeginInvoke(new EventHandler<PropertyUpdateArgs>(setProperty), new object[] { sender, args });
+                    IAsyncResult asyncResult = invokeTarget.BeginInvoke(new EventHandler<PropertyUpdateArgs>(SetProperty), new object[] { sender, args });
                     asyncResult.AsyncWaitHandle.WaitOne(50);
                 }
                 else
@@ -325,7 +325,7 @@ namespace Transitions
         /// or in the process of disposing. (If this is the case, we don't want
         /// to make any changes to its properties.)
         /// </summary>
-        private bool isDisposed(object target)
+        private bool IsDisposed(object target)
         {
             // Is the object passed in a Control?
             Control controlTarget = target as Control;
@@ -352,9 +352,9 @@ namespace Transitions
 		/// <summary>
 		/// Registers a transition-type. We hold them in a map.
 		/// </summary>
-		private static void registerType(IManagedType transitionType)
+		private static void RegisterType(IManagedType transitionType)
 		{
-			Type type = transitionType.getManagedType();
+			Type type = transitionType.GetManagedType();
 			m_mapManagedTypes[type] = transitionType;
 		}
 
@@ -396,10 +396,10 @@ namespace Transitions
 		}
 
 		// The collection of properties that the current transition is animating...
-		private IList<TransitionedPropertyInfo> m_listTransitionedProperties = new List<TransitionedPropertyInfo>();
+		private IList<TransitionedPropertyInfo> _listTransitionedProperties = new List<TransitionedPropertyInfo>();
 
 		// Helps us find the time interval from the time the transition starts to each timer tick...
-		private Stopwatch m_Stopwatch = new Stopwatch();
+		private Stopwatch _stopwatch = new Stopwatch();
 
         // Event args used for the event we raise when updating a property...
 		private class PropertyUpdateArgs : EventArgs
@@ -417,7 +417,7 @@ namespace Transitions
 
         // An object used to lock the list of transitioned properties, as it can be 
         // accessed by multiple threads...
-        private object m_Lock = new object();
+        private object _lock = new object();
 
 		#endregion
 	}

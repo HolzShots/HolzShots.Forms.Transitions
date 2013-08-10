@@ -21,6 +21,6 @@ namespace Transitions
 		/// You should return (in an out parameter) whether the transition has completed.
 		/// (This may not be at the same time as the percentage has moved to 100%.)
 		/// </summary>
-		void onTimer(int iTime, out double dPercentage, out bool bCompleted);
+		void OnTimer(int iTime, out double dPercentage, out bool bCompleted);
     }
 }

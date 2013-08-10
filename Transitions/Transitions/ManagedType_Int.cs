@@ -14,7 +14,7 @@ namespace Transitions
 		/// <summary>
 		/// Returns the type we are managing.
 		/// </summary>
-		public Type getManagedType()
+		public Type GetManagedType()
 		{
 			return typeof(int);
 		}
@@ -22,7 +22,7 @@ namespace Transitions
 		/// <summary>
 		/// Returns a copy of the int passed in.
 		/// </summary>
-		public object copy(object o)
+		public object Copy(object o)
 		{
 			int value = (int)o;
 			return value;
@@ -31,11 +31,11 @@ namespace Transitions
 		/// <summary>
 		/// Returns the value between the start and end for the percentage passed in.
 		/// </summary>
-		public object getIntermediateValue(object start, object end, double dPercentage)
+		public object GetIntermediateValue(object start, object end, double dPercentage)
 		{
 			int iStart = (int)start;
 			int iEnd = (int)end;
-			return Utility.interpolate(iStart, iEnd, dPercentage);
+			return Utility.Interpolate(iStart, iEnd, dPercentage);
 		}
 
 		#endregion
