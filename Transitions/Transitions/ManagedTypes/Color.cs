@@ -7,7 +7,7 @@ namespace Transitions.ManagedTypes
 	/// Class that manages transitions for Color properties. For these we
 	/// need to transition the R, G, B and A sub-properties independently.
 	/// </summary>
-	internal class ColorManagedType : IManagedType
+	internal class Color : IManagedType
 	{
 		#region IManagedType Members
 
@@ -16,7 +16,7 @@ namespace Transitions.ManagedTypes
 		/// </summary>
 		public Type GetManagedType()
 		{
-			return typeof(Color);
+			return typeof(System.Drawing.Color);
 		}
 
 		/// <summary>
@@ -24,8 +24,8 @@ namespace Transitions.ManagedTypes
 		/// </summary>
 		public object Copy(object o)
 		{
-			var c = (Color)o;
-			var result = Color.FromArgb(c.ToArgb());
+			var c = (System.Drawing.Color)o;
+			var result = System.Drawing.Color.FromArgb(c.ToArgb());
 			return result;
 		}
 
@@ -34,8 +34,8 @@ namespace Transitions.ManagedTypes
 		/// </summary>
 		public object GetIntermediateValue(object start, object end, double dPercentage)
 		{
-			var startColor = (Color)start;
-			var endColor = (Color)end;
+			var startColor = (System.Drawing.Color)start;
+			var endColor = (System.Drawing.Color)end;
 
 			// We interpolate the R, G, B and A components separately...
 			int iStart_R = startColor.R;
@@ -53,7 +53,7 @@ namespace Transitions.ManagedTypes
 			int new_B = Utility.Interpolate(iStart_B, iEnd_B, dPercentage);
 			int new_A = Utility.Interpolate(iStart_A, iEnd_A, dPercentage);
 
-			return Color.FromArgb(new_A, new_R, new_G, new_B);
+			return System.Drawing.Color.FromArgb(new_A, new_R, new_G, new_B);
 		}
 
 		#endregion

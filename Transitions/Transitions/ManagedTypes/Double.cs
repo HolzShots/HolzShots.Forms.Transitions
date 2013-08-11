@@ -5,7 +5,7 @@ namespace Transitions.ManagedTypes
 	/// <summary>
 	/// Manages transitions for double properties.
 	/// </summary>
-	internal class DoubleManagedType : IManagedType
+	internal class Double : IManagedType
 	{
 		#region IManagedType Members
 

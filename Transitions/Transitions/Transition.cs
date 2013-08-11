@@ -6,6 +6,9 @@ using System.Windows.Forms;
 using System.ComponentModel;
 using Transitions.ManagedTypes;
 using Transitions.TransitionTypes;
+using Double = Transitions.ManagedTypes.Double;
+using Int32 = Transitions.ManagedTypes.Int32;
+using String = Transitions.ManagedTypes.String;
 
 namespace Transitions
 {
@@ -46,11 +49,11 @@ namespace Transitions
         /// </summary>
         static Transition()
         {
-            RegisterType(new Int32ManagedType());
-            RegisterType(new FloatManagedType());
-            RegisterType(new DoubleManagedType());
-            RegisterType(new ColorManagedType());
-            RegisterType(new StringManagedType());
+            RegisterType(new Int32());
+            RegisterType(new Float());
+            RegisterType(new Double());
+            RegisterType(new Color());
+            RegisterType(new String());
         }
 
         #endregion

@@ -6,7 +6,7 @@ namespace Transitions.ManagedTypes
     /// Manages transitions for strings. This doesn't make as much sense as transitions
     /// on other types, but I like the way it looks!
     /// </summary>
-    internal class StringManagedType : IManagedType
+    internal class String : IManagedType
     {
         #region IManagedType Members
 

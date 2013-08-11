@@ -2,7 +2,7 @@
 
 namespace Transitions.ManagedTypes
 {
-    internal class FloatManagedType : IManagedType
+    internal class Float : IManagedType
     {
         #region IManagedType Members
 
