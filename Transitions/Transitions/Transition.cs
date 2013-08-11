@@ -44,11 +44,11 @@ namespace Transitions
         /// </summary>
         static Transition()
         {
-            RegisterType(new ManagedType_Int());
-            RegisterType(new ManagedType_Float());
-			RegisterType(new ManagedType_Double());
-            RegisterType(new ManagedType_Color());
-            RegisterType(new ManagedType_String());
+            RegisterType(new Int32ManagedType());
+            RegisterType(new FloatManagedType());
+            RegisterType(new DoubleManagedType());
+            RegisterType(new ColorManagedType());
+            RegisterType(new StringManagedType());
         }
 
         #endregion

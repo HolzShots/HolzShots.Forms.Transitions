@@ -43,27 +43,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ITransitionType.cs" />
-    <Compile Include="IManagedType.cs" />
-    <Compile Include="ManagedType_Color.cs" />
-    <Compile Include="ManagedType_Double.cs" />
-    <Compile Include="ManagedType_Float.cs" />
-    <Compile Include="ManagedType_String.cs" />
+    <Compile Include="TransitionTypes\ITransitionType.cs" />
+    <Compile Include="ManagedTypes\IManagedType.cs" />
+    <Compile Include="ManagedTypes\ColorManagedType.cs" />
+    <Compile Include="ManagedTypes\DoubleManagedType.cs" />
+    <Compile Include="ManagedTypes\FloatManagedType.cs" />
+    <Compile Include="ManagedTypes\StringManagedType.cs" />
     <Compile Include="Transition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ManagedType_Int.cs" />
+    <Compile Include="ManagedTypes\Int32ManagedType.cs" />
     <Compile Include="TransitionChain.cs" />
     <Compile Include="TransitionElement.cs" />
     <Compile Include="TransitionManager.cs" />
-    <Compile Include="TransitionType_Acceleration.cs" />
-    <Compile Include="TransitionType_Bounce.cs" />
-    <Compile Include="TransitionType_Flash.cs" />
-    <Compile Include="TransitionType_CriticalDamping.cs" />
-    <Compile Include="TransitionType_Deceleration.cs" />
-    <Compile Include="TransitionType_EaseInEaseOut.cs" />
-    <Compile Include="TransitionType_Linear.cs" />
-    <Compile Include="TransitionType_ThrowAndCatch.cs" />
-    <Compile Include="TransitionType_UserDefined.cs" />
+    <Compile Include="TransitionTypes\TransitionType_Acceleration.cs" />
+    <Compile Include="TransitionTypes\TransitionType_Bounce.cs" />
+    <Compile Include="TransitionTypes\TransitionType_Flash.cs" />
+    <Compile Include="TransitionTypes\TransitionType_CriticalDamping.cs" />
+    <Compile Include="TransitionTypes\TransitionType_Deceleration.cs" />
+    <Compile Include="TransitionTypes\TransitionType_EaseInEaseOut.cs" />
+    <Compile Include="TransitionTypes\TransitionType_Linear.cs" />
+    <Compile Include="TransitionTypes\TransitionType_ThrowAndCatch.cs" />
+    <Compile Include="TransitionTypes\TransitionType_UserDefined.cs" />
     <Compile Include="Utility.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
