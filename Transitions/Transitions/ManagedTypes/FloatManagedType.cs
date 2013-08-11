@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Transitions
+namespace Transitions.ManagedTypes
 {
     internal class FloatManagedType : IManagedType
     {

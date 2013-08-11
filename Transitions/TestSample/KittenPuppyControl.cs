@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Transitions;
+using Transitions.TransitionTypes;
 
 namespace TestSample
 {

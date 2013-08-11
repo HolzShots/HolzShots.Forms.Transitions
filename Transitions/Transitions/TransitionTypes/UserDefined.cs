@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Transitions
+namespace Transitions.TransitionTypes
 {
     /// <summary>
     /// This class allows you to create user-defined transition types. You specify these

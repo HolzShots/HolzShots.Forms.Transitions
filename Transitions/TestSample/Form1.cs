@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using Transitions;
 using System.Drawing;
 using System.Collections.Generic;
+using Transitions.TransitionTypes;
 
 namespace TestSample
 {

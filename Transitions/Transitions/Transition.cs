@@ -4,6 +4,8 @@ using System.Reflection;
 using System.Diagnostics;
 using System.Windows.Forms;
 using System.ComponentModel;
+using Transitions.ManagedTypes;
+using Transitions.TransitionTypes;
 
 namespace Transitions
 {

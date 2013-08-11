@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Transitions
+namespace Transitions.ManagedTypes
 {
     /// <summary>
     /// Interface for all types we can perform transitions on. 

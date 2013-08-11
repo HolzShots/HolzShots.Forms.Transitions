@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
-namespace Transitions
+namespace Transitions.ManagedTypes
 {
 	/// <summary>
 	/// Class that manages transitions for Color properties. For these we

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Transitions
+namespace Transitions.ManagedTypes
 {
 	/// <summary>
 	/// Manages transitions for double properties.
