@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ManagedTypes\Point.cs" />
+    <Compile Include="ManagedTypes\Rectangle.cs" />
     <Compile Include="TransitionTypes\ITransitionType.cs" />
     <Compile Include="ManagedTypes\IManagedType.cs" />
     <Compile Include="ManagedTypes\Color.cs" />
