@@ -55,15 +55,15 @@
     <Compile Include="TransitionChain.cs" />
     <Compile Include="TransitionElement.cs" />
     <Compile Include="TransitionManager.cs" />
-    <Compile Include="TransitionTypes\TransitionType_Acceleration.cs" />
-    <Compile Include="TransitionTypes\TransitionType_Bounce.cs" />
-    <Compile Include="TransitionTypes\TransitionType_Flash.cs" />
-    <Compile Include="TransitionTypes\TransitionType_CriticalDamping.cs" />
-    <Compile Include="TransitionTypes\TransitionType_Deceleration.cs" />
-    <Compile Include="TransitionTypes\TransitionType_EaseInEaseOut.cs" />
-    <Compile Include="TransitionTypes\TransitionType_Linear.cs" />
-    <Compile Include="TransitionTypes\TransitionType_ThrowAndCatch.cs" />
-    <Compile Include="TransitionTypes\TransitionType_UserDefined.cs" />
+    <Compile Include="TransitionTypes\Acceleration.cs" />
+    <Compile Include="TransitionTypes\Bounce.cs" />
+    <Compile Include="TransitionTypes\Flash.cs" />
+    <Compile Include="TransitionTypes\CriticalDamping.cs" />
+    <Compile Include="TransitionTypes\Deceleration.cs" />
+    <Compile Include="TransitionTypes\EaseInEaseOut.cs" />
+    <Compile Include="TransitionTypes\Linear.cs" />
+    <Compile Include="TransitionTypes\ThrowAndCatch.cs" />
+    <Compile Include="TransitionTypes\UserDefined.cs" />
     <Compile Include="Utility.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
