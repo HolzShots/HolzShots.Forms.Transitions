@@ -22,10 +22,10 @@ namespace Transitions
     /// 
     /// Example transition
     /// ------------------
-    /// a.      Transition t = new Transition(new TransitionMethod_Linear(500));
-    /// b.      t.add(form1, "Width", 500);
-    /// c.      t.add(form1, "BackColor", Color.Red);
-    /// d.      t.run();
+    /// a.      Transition t = new Transition(new TransitionMethods.Linear(500));
+    /// b.      t.Add(form1, "Width", 500);
+    /// c.      t.Add(form1, "BackColor", Color.Red);
+    /// d.      t.Run();
     ///   
     /// Line a:         Creates a new transition. You specify the transition method.
     ///                 
@@ -271,9 +271,7 @@ namespace Transitions
                 // try to update its proeprties. This can happen if the control is
                 // on a form that has been closed while the transition is running...
                 if (IsDisposed(args.Target))
-                {
                     return;
-                }
 
                 var invokeTarget = args.Target as ISynchronizeInvoke;
                 if (invokeTarget != null && invokeTarget.InvokeRequired)
