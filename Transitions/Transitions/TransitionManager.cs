@@ -25,7 +25,7 @@ namespace Transitions
         /// <summary>
         /// Singleton's getInstance method.
         /// </summary>
-        public static TransitionManager getInstance()
+        public static TransitionManager GetInstance()
         {
             return _instance ?? (_instance = new TransitionManager());
         }

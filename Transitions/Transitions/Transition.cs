@@ -128,22 +128,16 @@ namespace Transitions
 			Type targetType = target.GetType();
 			PropertyInfo propertyInfo = targetType.GetProperty(strPropertyName);
 			if (propertyInfo == null)
-			{
-				throw new Exception("Object: " + target + " does not have the property: " + strPropertyName);
-			}
+				throw new ArgumentException("Object: " + target + " does not have the property: " + strPropertyName);
 
 			// We check that we support the property type...
 			Type propertyType = propertyInfo.PropertyType;
 			if (MapManagedTypes.ContainsKey(propertyType) == false)
-			{
-				throw new Exception("Transition does not handle properties of type: " + propertyType);
-			}
+				throw new NotSupportedException("Transition does not handle properties of type: " + propertyType);
 
             // We can only transition properties that are both getable and setable...
             if (propertyInfo.CanRead == false || propertyInfo.CanWrite == false)
-            {
-                throw new Exception("Property is not both getable and setable: " + strPropertyName);
-            }
+                throw new NotSupportedException("Property is not both getable and setable: " + strPropertyName);
 
             IManagedType managedType = MapManagedTypes[propertyType];
             
@@ -182,7 +176,7 @@ namespace Transitions
 			_stopwatch.Start();
 
             // We register this transition with the transition manager...
-            TransitionManager.getInstance().register(this);
+            TransitionManager.GetInstance().register(this);
 		}
 
         #endregion
