@@ -55,6 +55,7 @@ namespace Transitions
             RegisterType(new Color());
             RegisterType(new String());
             RegisterType(new Rectangle());
+            RegisterType(new Point());
         }
 
         #endregion
