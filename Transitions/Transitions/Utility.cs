@@ -4,11 +4,11 @@ using System.ComponentModel;
 
 namespace Transitions
 {
-	/// <summary>
-	/// A class holding static utility functions.
-	/// </summary>
-	internal class Utility
-	{
+    /// <summary>
+    /// A class holding static utility functions.
+    /// </summary>
+    internal class Utility
+    {
         /// <summary>
         /// Returns the value of the property passed in.
         /// </summary>
@@ -37,16 +37,16 @@ namespace Transitions
             propertyInfo.SetValue(target, value, null);
         }
 
-		/// <summary>
-		/// Returns a value between d1 and d2 for the percentage passed in.
-		/// </summary>
-		public static double Interpolate(double d1, double d2, double dPercentage)
-		{
-			double dDifference = d2 - d1;
-			double dDistance = dDifference * dPercentage;
-			double dResult = d1 + dDistance;
-			return dResult;
-		}
+        /// <summary>
+        /// Returns a value between d1 and d2 for the percentage passed in.
+        /// </summary>
+        public static double Interpolate(double d1, double d2, double dPercentage)
+        {
+            double dDifference = d2 - d1;
+            double dDistance = dDifference * dPercentage;
+            double dResult = d1 + dDistance;
+            return dResult;
+        }
 
         /// <summary>
         /// Returns a value betweeen i1 and i2 for the percentage passed in.
@@ -55,7 +55,7 @@ namespace Transitions
         {
             return (int)Interpolate((double)i1, i2, dPercentage);
         }
-    
+
         /// <summary>
         /// Returns a value betweeen f1 and f2 for the percentage passed in.
         /// </summary>
@@ -133,7 +133,7 @@ namespace Transitions
                     {
                         // The target is most likely a form or control that needs the
                         // handler to be invoked on its own thread...
-                        target.BeginInvoke(handler, new [] { sender, args });
+                        target.BeginInvoke(handler, new[] { sender, args });
                     }
                 }
                 catch (Exception)
@@ -143,6 +143,5 @@ namespace Transitions
                 }
             }
         }
-
     }
 }

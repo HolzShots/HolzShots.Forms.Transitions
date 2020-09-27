@@ -47,32 +47,32 @@ namespace Transitions.ManagedTypes
             {
                 // We get the start and end chars at this position...
                 char cStart = 'a';
-                if(i < iStartLength)
+                if (i < iStartLength)
                 {
                     cStart = strStart[i];
                 }
                 char cEnd = 'a';
-                if(i < iEndLength)
+                if (i < iEndLength)
                 {
                     cEnd = strEnd[i];
                 }
 
                 // We interpolate them...
-				char cInterpolated;
-				if (cEnd == ' ')
-				{
-					// If the end character is a space we just show a space 
-					// regardless of interpolation. It looks better this way...
-					cInterpolated = ' ';
-				}
-				else
-				{
-					// The end character is not a space, so we interpolate...
-					int iStart = Convert.ToInt32(cStart);
-					int iEnd = Convert.ToInt32(cEnd);
-					int iInterpolated = Utility.Interpolate(iStart, iEnd, dPercentage);
-					cInterpolated = Convert.ToChar(iInterpolated);
-				}
+                char cInterpolated;
+                if (cEnd == ' ')
+                {
+                    // If the end character is a space we just show a space 
+                    // regardless of interpolation. It looks better this way...
+                    cInterpolated = ' ';
+                }
+                else
+                {
+                    // The end character is not a space, so we interpolate...
+                    int iStart = Convert.ToInt32(cStart);
+                    int iEnd = Convert.ToInt32(cEnd);
+                    int iInterpolated = Utility.Interpolate(iStart, iEnd, dPercentage);
+                    cInterpolated = Convert.ToChar(iInterpolated);
+                }
 
                 result[i] = cInterpolated;
             }

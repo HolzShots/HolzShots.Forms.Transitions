@@ -21,12 +21,12 @@ namespace Transitions.ManagedTypes
         /// </summary>
         object Copy(object o);
 
-		/// <summary>
-		/// Returns an object holding the value between the start and end corresponding
-		/// to the percentage passed in. (Note: the percentage can be less than 0% or
-		/// greater than 100%.)
-		/// </summary>
-		object GetIntermediateValue(object start, object end, double dPercentage);
+        /// <summary>
+        /// Returns an object holding the value between the start and end corresponding
+        /// to the percentage passed in. (Note: the percentage can be less than 0% or
+        /// greater than 100%.)
+        /// </summary>
+        object GetIntermediateValue(object start, object end, double dPercentage);
 
     }
 }

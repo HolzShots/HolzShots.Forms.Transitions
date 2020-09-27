@@ -42,9 +42,7 @@ namespace Transitions.TransitionTypes
         /// <summary>
         /// Constructor.
         /// </summary>
-        public UserDefined()
-        {
-        }
+        public UserDefined() { }
 
         /// <summary>
         /// Constructor. You pass in the list of TransitionElements and the total time

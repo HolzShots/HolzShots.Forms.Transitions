@@ -2,10 +2,10 @@
 
 namespace Transitions.TransitionTypes
 {
-	/// <summary>
-	/// This class manages a linear transition. The percentage complete for the transition
-	/// increases linearly with time.
-	/// </summary>
+    /// <summary>
+    /// This class manages a linear transition. The percentage complete for the transition
+    /// increases linearly with time.
+    /// </summary>
     public class Linear : ITransitionType
     {
         #region Public methods
@@ -16,40 +16,40 @@ namespace Transitions.TransitionTypes
         /// </summary>
         public Linear(int iTransitionTime)
         {
-			if (iTransitionTime <= 0)
-			{
-				throw new Exception("Transition time must be greater than zero.");
-			}
-			_transitionTime = iTransitionTime;
+            if (iTransitionTime <= 0)
+            {
+                throw new Exception("Transition time must be greater than zero.");
+            }
+            _transitionTime = iTransitionTime;
         }
 
         #endregion
 
-		#region ITransitionMethod Members
+        #region ITransitionMethod Members
 
-		/// <summary>
-		/// We return the percentage completed.
-		/// </summary>
-		public void OnTimer(int iTime, out double dPercentage, out bool bCompleted)
-		{
-			dPercentage = (iTime / _transitionTime);
-			if (dPercentage >= 1.0)
-			{
-				dPercentage = 1.0;
-				bCompleted = true;
-			}
-			else
-			{
-				bCompleted = false;
-			}
-		}
+        /// <summary>
+        /// We return the percentage completed.
+        /// </summary>
+        public void OnTimer(int iTime, out double dPercentage, out bool bCompleted)
+        {
+            dPercentage = (iTime / _transitionTime);
+            if (dPercentage >= 1.0)
+            {
+                dPercentage = 1.0;
+                bCompleted = true;
+            }
+            else
+            {
+                bCompleted = false;
+            }
+        }
 
-		#endregion
+        #endregion
 
-		#region Private data
+        #region Private data
 
-		private readonly double _transitionTime;
+        private readonly double _transitionTime;
 
-		#endregion
-	}
+        #endregion
+    }
 }

@@ -23,7 +23,7 @@ namespace Transitions.TransitionTypes
 
             // We set up the elements of the user-defined transition...
             IList<TransitionElement> elements = new List<TransitionElement>();
-            for(int i=0; i<iNumberOfFlashes; ++i)
+            for (int i = 0; i < iNumberOfFlashes; ++i)
             {
                 // Each flash consists of two elements: one going to the destination value, 
                 // and another going back again...

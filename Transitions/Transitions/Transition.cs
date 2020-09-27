@@ -41,10 +41,10 @@ namespace Transitions
     /// 
     /// </summary>
     public class Transition
-	{
-		#region Registration
+    {
+        #region Registration
 
-		/// <summary>
+        /// <summary>
         /// You should register all managed-types here.
         /// </summary>
         static Transition()
@@ -116,46 +116,46 @@ namespace Transitions
         /// </summary>
         public Transition(ITransitionType transitionMethod)
         {
-			_transitionMethod = transitionMethod;
+            _transitionMethod = transitionMethod;
         }
 
-		/// <summary>
-		/// Adds a property that should be animated as part of this transition.
-		/// </summary>
-		public void Add(object target, string strPropertyName, object destinationValue)
-		{
-			// We get the property info...
-			Type targetType = target.GetType();
-			PropertyInfo propertyInfo = targetType.GetProperty(strPropertyName);
-			if (propertyInfo == null)
-				throw new ArgumentException("Object: " + target + " does not have the property: " + strPropertyName);
+        /// <summary>
+        /// Adds a property that should be animated as part of this transition.
+        /// </summary>
+        public void Add(object target, string strPropertyName, object destinationValue)
+        {
+            // We get the property info...
+            Type targetType = target.GetType();
+            PropertyInfo propertyInfo = targetType.GetProperty(strPropertyName);
+            if (propertyInfo == null)
+                throw new ArgumentException($"Object: {target} does not have the property: {strPropertyName}");
 
-			// We check that we support the property type...
-			Type propertyType = propertyInfo.PropertyType;
-			if (MapManagedTypes.ContainsKey(propertyType) == false)
-				throw new NotSupportedException("Transition does not handle properties of type: " + propertyType);
+            // We check that we support the property type...
+            Type propertyType = propertyInfo.PropertyType;
+            if (MapManagedTypes.ContainsKey(propertyType) == false)
+                throw new NotSupportedException($"Transition does not handle properties of type: {propertyType}");
 
             // We can only transition properties that are both getable and setable...
             if (propertyInfo.CanRead == false || propertyInfo.CanWrite == false)
-                throw new NotSupportedException("Property is not both getable and setable: " + strPropertyName);
+                throw new NotSupportedException($"Property is not both getable and setable: {strPropertyName}");
 
             IManagedType managedType = MapManagedTypes[propertyType];
-            
-            // We can manage this type, so we store the information for the
-			// transition of this property...
-			var info = new TransitionedPropertyInfo
-			           {
-			               EndValue = destinationValue,
-			               Target = target,
-			               PropertyInfo = propertyInfo,
-			               ManagedType = managedType
-			           };
 
-		    lock (_lock)
+            // We can manage this type, so we store the information for the
+            // transition of this property...
+            var info = new TransitionedPropertyInfo
+            {
+                EndValue = destinationValue,
+                Target = target,
+                PropertyInfo = propertyInfo,
+                ManagedType = managedType
+            };
+
+            lock (_lock)
             {
                 _listTransitionedProperties.Add(info);
             }
-		}
+        }
 
         /// <summary>
         /// Starts the transition.
@@ -170,14 +170,14 @@ namespace Transitions
                 info.StartValue = info.ManagedType.Copy(value);
             }
 
-			// We start the stopwatch. We use this when the timer ticks to measure 
-			// how long the transition has been runnning for...
-			_stopwatch.Reset();
-			_stopwatch.Start();
+            // We start the stopwatch. We use this when the timer ticks to measure 
+            // how long the transition has been runnning for...
+            _stopwatch.Reset();
+            _stopwatch.Start();
 
             // We register this transition with the transition manager...
-            TransitionManager.GetInstance().register(this);
-		}
+            TransitionManager.GetInstance().Register(this);
+        }
 
         #endregion
 
@@ -258,13 +258,13 @@ namespace Transitions
 
         #region Private functions
 
-		/// <summary>
-		/// Sets a property on the object passed in to the value passed in. This method
-		/// invokes itself on the GUI thread if the property is being invoked on a GUI 
-		/// object.
-		/// </summary>
-		private void SetProperty(object sender, PropertyUpdateArgs args)
-		{
+        /// <summary>
+        /// Sets a property on the object passed in to the value passed in. This method
+        /// invokes itself on the GUI thread if the property is being invoked on a GUI 
+        /// object.
+        /// </summary>
+        private void SetProperty(object sender, PropertyUpdateArgs args)
+        {
             try
             {
                 // If the target is a control that has been disposed then we don't 
@@ -296,14 +296,14 @@ namespace Transitions
                     // disposed - for example, it is on a form that is being closed. See
                     // here for details: 
                     // http://social.msdn.microsoft.com/Forums/en-US/winforms/thread/7d2c941a-0016-431a-abba-67c5d5dac6a5
-                    
+
                     // To solve this, we use a combination of the two earlier approaches. 
                     // We use BeginInvoke as this does not block and lock up, even if the
                     // underlying object is being disposed. But we do want to wait to give
                     // the UI a chance to process the update. So what we do is to do the
                     // asynchronous BeginInvoke, but then wait (with a short timeout) for
                     // it to complete.
-                    IAsyncResult asyncResult = invokeTarget.BeginInvoke(new EventHandler<PropertyUpdateArgs>(SetProperty), new [] { sender, args });
+                    IAsyncResult asyncResult = invokeTarget.BeginInvoke(new EventHandler<PropertyUpdateArgs>(SetProperty), new[] { sender, args });
                     asyncResult.AsyncWaitHandle.WaitOne(50);
                 }
                 else
@@ -317,7 +317,7 @@ namespace Transitions
                 // We silently catch any exceptions. These could be things like 
                 // bounds exceptions when setting properties.
             }
-		}
+        }
 
         /// <summary>
         /// Returns true if the object passed in is a Control and is disposed
@@ -337,82 +337,82 @@ namespace Transitions
             return controlTarget.IsDisposed || controlTarget.Disposing;
         }
 
-		#endregion
+        #endregion
 
-		#region Private static functions
+        #region Private static functions
 
-		/// <summary>
-		/// Registers a transition-type. We hold them in a map.
-		/// </summary>
-		private static void RegisterType(IManagedType transitionType)
-		{
-			var type = transitionType.GetManagedType();
-			MapManagedTypes[type] = transitionType;
-		}
+        /// <summary>
+        /// Registers a transition-type. We hold them in a map.
+        /// </summary>
+        private static void RegisterType(IManagedType transitionType)
+        {
+            var type = transitionType.GetManagedType();
+            MapManagedTypes[type] = transitionType;
+        }
 
-		#endregion
-		
-		#region Private static data
+        #endregion
 
-		// A map of Type info to IManagedType objects. These are all the types that we
+        #region Private static data
+
+        // A map of Type info to IManagedType objects. These are all the types that we
         // know how to perform transactions on...
         private static readonly IDictionary<Type, IManagedType> MapManagedTypes = new Dictionary<Type, IManagedType>();
 
         #endregion
 
-		#region Private data
+        #region Private data
 
-		// The transition method used by this transition...
-		private readonly ITransitionType _transitionMethod;
+        // The transition method used by this transition...
+        private readonly ITransitionType _transitionMethod;
 
-		// Holds information about one property on one taregt object that we are performing
-		// a transition on...
-		internal class TransitionedPropertyInfo
-		{
-			public object StartValue;
-			public object EndValue;
-			public object Target;
-			public PropertyInfo PropertyInfo;
-			public IManagedType ManagedType;
+        // Holds information about one property on one taregt object that we are performing
+        // a transition on...
+        internal class TransitionedPropertyInfo
+        {
+            public object StartValue;
+            public object EndValue;
+            public object Target;
+            public PropertyInfo PropertyInfo;
+            public IManagedType ManagedType;
 
             public TransitionedPropertyInfo Copy()
             {
                 var info = new TransitionedPropertyInfo
-                           {
-                               StartValue = StartValue,
-                               EndValue = EndValue,
-                               Target = Target,
-                               PropertyInfo = PropertyInfo,
-                               ManagedType = ManagedType
-                           };
+                {
+                    StartValue = StartValue,
+                    EndValue = EndValue,
+                    Target = Target,
+                    PropertyInfo = PropertyInfo,
+                    ManagedType = ManagedType,
+                };
                 return info;
             }
-		}
+        }
 
-		// The collection of properties that the current transition is animating...
-		private readonly IList<TransitionedPropertyInfo> _listTransitionedProperties = new List<TransitionedPropertyInfo>();
+        // The collection of properties that the current transition is animating...
+        private readonly IList<TransitionedPropertyInfo> _listTransitionedProperties = new List<TransitionedPropertyInfo>();
 
-		// Helps us find the time interval from the time the transition starts to each timer tick...
-		private readonly Stopwatch _stopwatch = new Stopwatch();
+        // Helps us find the time interval from the time the transition starts to each timer tick...
+        private readonly Stopwatch _stopwatch = new Stopwatch();
 
         // Event args used for the event we raise when updating a property...
-		private class PropertyUpdateArgs : EventArgs
-		{
-			public PropertyUpdateArgs(object t, PropertyInfo pi, object v)
-			{
-				Target = t;
-				PropertyInfo = pi;
-				Value = v;
-			}
-			public readonly object Target;
-			public readonly PropertyInfo PropertyInfo;
-			public readonly object Value;
-		}
+        private class PropertyUpdateArgs : EventArgs
+        {
+            public PropertyUpdateArgs(object t, PropertyInfo pi, object v)
+            {
+                Target = t;
+                PropertyInfo = pi;
+                Value = v;
+            }
+            public readonly object Target;
+            public readonly PropertyInfo PropertyInfo;
+            public readonly object Value;
+        }
 
         // An object used to lock the list of transitioned properties, as it can be 
         // accessed by multiple threads...
         private readonly object _lock = new object();
 
-		#endregion
-	}
+        #endregion
+    }
 }
