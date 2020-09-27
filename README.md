@@ -1,4 +1,4 @@
-# donet-transitions ![CI](https://github.com/nikeee/dotnet-transitions/workflows/CI/badge.svg)
+# donet-transitions ![CI](https://github.com/nikeee/dotnet-transitions/workflows/CI/badge.svg) ![Nuget Version](https://img.shields.io/nuget/v/Forms.Transitions)
 
 A library for animated UI transitions for Windows Forms.
 
