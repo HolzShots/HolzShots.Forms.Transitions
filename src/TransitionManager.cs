@@ -25,7 +25,7 @@ namespace Forms.Transitions
         /// <summary>
         /// Singleton's getInstance method.
         /// </summary>
-        public static TransitionManager Instance => _instance ?? (_instance = new TransitionManager());
+        public static TransitionManager Instance => _instance ??= new TransitionManager();
 
         /// <summary>
         /// You register a transition with the manager here. This will start to run
