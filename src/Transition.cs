@@ -4,13 +4,13 @@ using System.Reflection;
 using System.Diagnostics;
 using System.Windows.Forms;
 using System.ComponentModel;
-using Transitions.ManagedTypes;
-using Transitions.TransitionTypes;
-using DoubleManagedType = Transitions.ManagedTypes.DoubleManagedType;
-using Int32ManagedType = Transitions.ManagedTypes.Int32ManagedType;
-using StringManagedType = Transitions.ManagedTypes.StringManagedType;
+using Forms.Transitions.ManagedTypes;
+using Forms.Transitions.TransitionTypes;
+using DoubleManagedType = Forms.Transitions.ManagedTypes.DoubleManagedType;
+using Int32ManagedType = Forms.Transitions.ManagedTypes.Int32ManagedType;
+using StringManagedType = Forms.Transitions.ManagedTypes.StringManagedType;
 
-namespace Transitions
+namespace Forms.Transitions
 {
     /// <summary>
     /// Lets you perform animated transitions of properties on arbitrary objects. These 

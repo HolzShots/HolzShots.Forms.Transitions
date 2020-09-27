@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Transitions.TransitionTypes
+namespace Forms.Transitions.TransitionTypes
 {
     /// <summary>
     /// This class manages a linear transition. The percentage complete for the transition

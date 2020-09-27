@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
-namespace Transitions.ManagedTypes
+namespace Forms.Transitions.ManagedTypes
 {
     /// <summary>
     /// Class that manages transitions for Point properties.

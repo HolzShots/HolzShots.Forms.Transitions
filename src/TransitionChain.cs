@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Transitions
+namespace Forms.Transitions
 {
     internal class TransitionChain
     {

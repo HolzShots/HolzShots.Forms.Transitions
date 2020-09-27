@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Transitions.TransitionTypes
+namespace Forms.Transitions.TransitionTypes
 {
     /// <summary>
     /// This transition type 'flashes' the properties a specified number of times, ending

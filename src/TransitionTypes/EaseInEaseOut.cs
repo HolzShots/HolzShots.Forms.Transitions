@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Transitions.TransitionTypes
+namespace Forms.Transitions.TransitionTypes
 {
     /// <summary>
     /// Manages an ease-in-ease-out transition. This accelerates during the first 

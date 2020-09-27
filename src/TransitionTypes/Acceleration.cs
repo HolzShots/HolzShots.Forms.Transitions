@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Transitions.TransitionTypes
+namespace Forms.Transitions.TransitionTypes
 {
     /// <summary>
     /// Manages transitions under constant acceleration from a standing start.

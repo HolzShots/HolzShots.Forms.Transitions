@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Transitions.TransitionTypes
+namespace Forms.Transitions.TransitionTypes
 {
     /// <summary>
     /// This transition animates with an exponential decay. This has a damping effect

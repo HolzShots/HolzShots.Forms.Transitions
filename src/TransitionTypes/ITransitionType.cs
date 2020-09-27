@@ -1,5 +1,5 @@
 ﻿
-namespace Transitions.TransitionTypes
+namespace Forms.Transitions.TransitionTypes
 {
     public interface ITransitionType
     {

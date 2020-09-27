@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Transitions.TransitionTypes
+namespace Forms.Transitions.TransitionTypes
 {
     /// <summary>
     /// Manages a transition starting from a high speed and decelerating to zero by

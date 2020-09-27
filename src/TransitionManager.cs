@@ -1,22 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.Timers;
 
-namespace Transitions
+namespace Forms.Transitions
 {
     /// <summary>
     /// This class is responsible for running transitions. It holds the timer that
-    /// triggers transaction animation. 
+    /// triggers transaction animation.
     /// </summary><remarks>
     /// This class is a singleton.
-    /// 
+    ///
     /// We manage the transaction timer here so that we can have a single timer
     /// across all transactions. If each transaction has its own timer, this creates
     /// one thread for each transaction, and this can lead to too many threads in
     /// an application.
-    /// 
-    /// This class essentially just manages the timer for the transitions. It calls 
+    ///
+    /// This class essentially just manages the timer for the transitions. It calls
     /// back into the running transitions, which do the actual work of the transition.
-    /// 
+    ///
     /// </remarks>
     internal class TransitionManager
     {
@@ -39,7 +39,7 @@ namespace Transitions
                 // are already being animated by any existing transitions...
                 RemoveDuplicates(transition);
 
-                // We add the transition to the collection we manage, and 
+                // We add the transition to the collection we manage, and
                 // observe it so that we know when it has completed...
                 _transitions[transition] = true;
                 transition.TransitionCompletedEvent += OnTransitionCompleted;
@@ -52,7 +52,7 @@ namespace Transitions
 
         /// <summary>
         /// Checks if any existing transitions are acting on the same properties as the
-        /// transition passed in. If so, we remove the duplicated properties from the 
+        /// transition passed in. If so, we remove the duplicated properties from the
         /// older transitions.
         /// </summary>
         private void RemoveDuplicates(Transition transition)
@@ -69,7 +69,7 @@ namespace Transitions
         private void RemoveDuplicates(Transition newTransition, Transition oldTransition)
         {
             // Note: This checking might be a bit more efficient if it did the checking
-            //       with a set rather than looking through lists. That said, it is only done 
+            //       with a set rather than looking through lists. That said, it is only done
             //       when transitions are added (which isn't very often) rather than on the
             //       timer, so I don't think this matters too much.
 
@@ -77,7 +77,7 @@ namespace Transitions
             IList<Transition.TransitionedPropertyInfo> newProperties = newTransition.TransitionedProperties;
             IList<Transition.TransitionedPropertyInfo> oldProperties = oldTransition.TransitionedProperties;
 
-            // We loop through the old properties backwards (as we may be removing 
+            // We loop through the old properties backwards (as we may be removing
             // items from the list if we find a match)...
             for (int i = oldProperties.Count - 1; i >= 0; i--)
             {
@@ -125,7 +125,7 @@ namespace Transitions
             IList<Transition> listTransitions;
             lock (_lock)
             {
-                // We take a copy of the collection of transitions as elements 
+                // We take a copy of the collection of transitions as elements
                 // might be removed as we iterate through it...
                 listTransitions = new List<Transition>();
                 foreach (KeyValuePair<Transition, bool> pair in _transitions)
@@ -143,7 +143,7 @@ namespace Transitions
         }
 
         /// <summary>
-        /// Called when a transition has completed. 
+        /// Called when a transition has completed.
         /// </summary>
         private void OnTransitionCompleted(object sender, Transition.Args e)
         {
@@ -171,9 +171,9 @@ namespace Transitions
         // The timer that controls the transition animation...
         private readonly Timer _timer;
 
-        // An object to lock on. This class can be accessed by multiple threads: the 
-        // user thread can add new transitions; and the timerr thread can be animating 
-        // them. As they access the same collections, the methods need to be protected 
+        // An object to lock on. This class can be accessed by multiple threads: the
+        // user thread can add new transitions; and the timerr thread can be animating
+        // them. As they access the same collections, the methods need to be protected
         // by a lock...
         private readonly object _lock = new object();
 

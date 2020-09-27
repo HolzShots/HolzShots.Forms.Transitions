@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Transitions.ManagedTypes
+namespace Forms.Transitions.ManagedTypes
 {
     /// <summary>
     /// Manages transitions for strings. This doesn't make as much sense as transitions
@@ -58,7 +58,7 @@ namespace Transitions.ManagedTypes
                 char cInterpolated;
                 if (cEnd == ' ')
                 {
-                    // If the end character is a space we just show a space 
+                    // If the end character is a space we just show a space
                     // regardless of interpolation. It looks better this way...
                     cInterpolated = ' ';
                 }

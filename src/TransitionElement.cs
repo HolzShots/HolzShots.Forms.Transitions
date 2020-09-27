@@ -1,5 +1,5 @@
 ﻿
-namespace Transitions
+namespace Forms.Transitions
 {
     public enum InterpolationMethod
     {

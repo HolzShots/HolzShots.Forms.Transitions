@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Transitions.ManagedTypes
+namespace Forms.Transitions.ManagedTypes
 {
     /// <summary>
     /// Manages transitions for int properties.
