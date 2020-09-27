@@ -25,10 +25,7 @@ namespace Transitions
         /// <summary>
         /// Singleton's getInstance method.
         /// </summary>
-        public static TransitionManager GetInstance()
-        {
-            return _instance ?? (_instance = new TransitionManager());
-        }
+        public static TransitionManager Instance => _instance ?? (_instance = new TransitionManager());
 
         /// <summary>
         /// You register a transition with the manager here. This will start to run
@@ -62,9 +59,7 @@ namespace Transitions
         {
             // We look through the set of transitions we're currently managing...
             foreach (KeyValuePair<Transition, bool> pair in _transitions)
-            {
                 RemoveDuplicates(transition, pair.Key);
-            }
         }
 
         /// <summary>
@@ -141,9 +136,7 @@ namespace Transitions
 
             // We tick the timer for each transition we're managing...
             foreach (Transition transition in listTransitions)
-            {
                 transition.OnTimer();
-            }
 
             // We restart the timer...
             _timer.Enabled = true;

@@ -17,9 +17,8 @@ namespace Transitions.TransitionTypes
         public CriticalDamping(int iTransitionTime)
         {
             if (iTransitionTime <= 0)
-            {
                 throw new Exception("Transition time must be greater than zero.");
-            }
+
             _transitionTime = iTransitionTime;
         }
 

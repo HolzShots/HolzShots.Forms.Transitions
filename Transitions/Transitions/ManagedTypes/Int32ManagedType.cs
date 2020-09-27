@@ -5,27 +5,19 @@ namespace Transitions.ManagedTypes
     /// <summary>
     /// Manages transitions for int properties.
     /// </summary>
-    internal class Int32
-        : IManagedType
+    internal class Int32ManagedType : IManagedType
     {
         #region IManagedType Members
 
         /// <summary>
         /// Returns the type we are managing.
         /// </summary>
-        public Type GetManagedType()
-        {
-            return typeof(int);
-        }
+        public Type GetManagedType() => typeof(int);
 
         /// <summary>
         /// Returns a copy of the int passed in.
         /// </summary>
-        public object Copy(object o)
-        {
-            int value = (int)o;
-            return value;
-        }
+        public object Copy(object o) => (int)o;
 
         /// <summary>
         /// Returns the value between the start and end for the percentage passed in.

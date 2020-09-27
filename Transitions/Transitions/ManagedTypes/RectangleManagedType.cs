@@ -6,25 +6,22 @@ namespace Transitions.ManagedTypes
     /// <summary>
     /// Class that manages transitions for Rectangle properties.
     /// </summary>
-	internal class Rectangle : IManagedType
+	internal class RectangleManagedType : IManagedType
     {
         #region IManagedType Members
 
         /// <summary>
         /// Returns the type we are managing.
         /// </summary>
-        public Type GetManagedType()
-        {
-            return typeof(System.Drawing.Rectangle);
-        }
+        public Type GetManagedType() => typeof(Rectangle);
 
         /// <summary>
         /// Returns a copy of the rectangle object passed in.
         /// </summary>
         public object Copy(object o)
         {
-            var c = (System.Drawing.Rectangle)o;
-            return new System.Drawing.Rectangle(c.X, c.Y, c.Width, c.Height);
+            var c = (Rectangle)o;
+            return new Rectangle(c.X, c.Y, c.Width, c.Height);
         }
 
         /// <summary>
@@ -32,15 +29,15 @@ namespace Transitions.ManagedTypes
         /// </summary>
         public object GetIntermediateValue(object start, object end, double dPercentage)
         {
-            var startRectangle = (System.Drawing.Rectangle)start;
-            var endRectangle = (System.Drawing.Rectangle)end;
+            var startRectangle = (Rectangle)start;
+            var endRectangle = (Rectangle)end;
 
             int newX = Utility.Interpolate(startRectangle.X, endRectangle.X, dPercentage);
             int newY = Utility.Interpolate(startRectangle.Y, endRectangle.Y, dPercentage);
             int newWidth = Utility.Interpolate(startRectangle.Width, endRectangle.Width, dPercentage);
             int newHeight = Utility.Interpolate(startRectangle.Height, endRectangle.Height, dPercentage);
 
-            return new System.Drawing.Rectangle(newX, newY, newWidth, newHeight);
+            return new Rectangle(newX, newY, newWidth, newHeight);
         }
 
         #endregion

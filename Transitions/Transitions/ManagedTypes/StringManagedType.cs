@@ -6,17 +6,14 @@ namespace Transitions.ManagedTypes
     /// Manages transitions for strings. This doesn't make as much sense as transitions
     /// on other types, but I like the way it looks!
     /// </summary>
-    internal class String : IManagedType
+    internal class StringManagedType : IManagedType
     {
         #region IManagedType Members
 
         /// <summary>
         /// Returns the type we're managing.
         /// </summary>
-        public Type GetManagedType()
-        {
-            return typeof(string);
-        }
+        public Type GetManagedType() => typeof(string);
 
         /// <summary>
         /// Returns a copy of the string passed in.

@@ -15,11 +15,10 @@ namespace Transitions
         public static object GetValue(object target, string strPropertyName)
         {
             Type targetType = target.GetType();
-            PropertyInfo propertyInfo = targetType.GetProperty(strPropertyName);
+            var propertyInfo = targetType.GetProperty(strPropertyName);
             if (propertyInfo == null)
-            {
-                throw new Exception("Object: " + target + " does not have the property: " + strPropertyName);
-            }
+                throw new Exception($"Object: {target} does not have the property: {strPropertyName}");
+
             return propertyInfo.GetValue(target, null);
         }
 
@@ -29,11 +28,10 @@ namespace Transitions
         public static void SetValue(object target, string strPropertyName, object value)
         {
             Type targetType = target.GetType();
-            PropertyInfo propertyInfo = targetType.GetProperty(strPropertyName);
+            var propertyInfo = targetType.GetProperty(strPropertyName);
             if (propertyInfo == null)
-            {
-                throw new Exception("Object: " + target + " does not have the property: " + strPropertyName);
-            }
+                throw new Exception($"Object: {target} does not have the property: {strPropertyName}");
+
             propertyInfo.SetValue(target, value, null);
         }
 
@@ -42,27 +40,21 @@ namespace Transitions
         /// </summary>
         public static double Interpolate(double d1, double d2, double dPercentage)
         {
-            double dDifference = d2 - d1;
-            double dDistance = dDifference * dPercentage;
-            double dResult = d1 + dDistance;
+            var dDifference = d2 - d1;
+            var dDistance = dDifference * dPercentage;
+            var dResult = d1 + dDistance;
             return dResult;
         }
 
         /// <summary>
         /// Returns a value betweeen i1 and i2 for the percentage passed in.
         /// </summary>
-        public static int Interpolate(int i1, int i2, double dPercentage)
-        {
-            return (int)Interpolate((double)i1, i2, dPercentage);
-        }
+        public static int Interpolate(int i1, int i2, double dPercentage) => (int)Interpolate((double)i1, i2, dPercentage);
 
         /// <summary>
         /// Returns a value betweeen f1 and f2 for the percentage passed in.
         /// </summary>
-        public static float Interpolate(float f1, float f2, double dPercentage)
-        {
-            return (float)Interpolate((double)f1, f2, dPercentage);
-        }
+        public static float Interpolate(float f1, float f2, double dPercentage) => (float)Interpolate((double)f1, f2, dPercentage);
 
         /// <summary>
         /// Converts a fraction representing linear time to a fraction representing
@@ -82,19 +74,13 @@ namespace Transitions
         /// Converts a fraction representing linear time to a fraction representing
         /// the distance traveled under a constant acceleration transition.
         /// </summary>
-        public static double ConvertLinearToAcceleration(double dElapsed)
-        {
-            return dElapsed * dElapsed;
-        }
+        public static double ConvertLinearToAcceleration(double dElapsed) => dElapsed * dElapsed;
 
         /// <summary>
         /// Converts a fraction representing linear time to a fraction representing
         /// the distance traveled under a constant deceleration transition.
         /// </summary>
-        public static double ConvertLinearToDeceleration(double dElapsed)
-        {
-            return dElapsed * (2.0 - dElapsed);
-        }
+        public static double ConvertLinearToDeceleration(double dElapsed) => dElapsed * (2.0 - dElapsed);
 
         /// <summary>
         /// Fires the event passed in in a thread-safe way. 
@@ -110,9 +96,8 @@ namespace Transitions
         {
             // Is the event set up?
             if (theEvent == null)
-            {
                 return;
-            }
+
 
             // We loop through each of the delegate handlers for this event. For each of 
             // them we need to decide whether to invoke it on the current thread or to

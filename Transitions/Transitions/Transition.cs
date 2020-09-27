@@ -6,9 +6,9 @@ using System.Windows.Forms;
 using System.ComponentModel;
 using Transitions.ManagedTypes;
 using Transitions.TransitionTypes;
-using Double = Transitions.ManagedTypes.Double;
-using Int32 = Transitions.ManagedTypes.Int32;
-using String = Transitions.ManagedTypes.String;
+using DoubleManagedType = Transitions.ManagedTypes.DoubleManagedType;
+using Int32ManagedType = Transitions.ManagedTypes.Int32ManagedType;
+using StringManagedType = Transitions.ManagedTypes.StringManagedType;
 
 namespace Transitions
 {
@@ -49,13 +49,13 @@ namespace Transitions
         /// </summary>
         static Transition()
         {
-            RegisterType(new Int32());
-            RegisterType(new Float());
-            RegisterType(new Double());
-            RegisterType(new Color());
-            RegisterType(new String());
-            RegisterType(new Rectangle());
-            RegisterType(new Point());
+            RegisterType(new Int32ManagedType());
+            RegisterType(new FloatManagedType());
+            RegisterType(new DoubleManagedType());
+            RegisterType(new ColorManagedType());
+            RegisterType(new StringManagedType());
+            RegisterType(new RectangleManagedType());
+            RegisterType(new PointManagedType());
         }
 
         #endregion
@@ -65,9 +65,7 @@ namespace Transitions
         /// <summary>
         /// Args passed with the TransitionCompletedEvent.
         /// </summary>
-        public class Args : EventArgs
-        {
-        }
+        public class Args : EventArgs { }
 
         /// <summary>
         /// Event raised when the transition hass completed.
@@ -101,10 +99,7 @@ namespace Transitions
         /// <summary>
         /// Creates a TransitionChain and runs it.
         /// </summary>
-        public static void RunChain(params Transition[] transitions)
-        {
-            var c = new TransitionChain(transitions);
-        }
+        public static void RunChain(params Transition[] transitions) => _ = new TransitionChain(transitions);
 
         #endregion
 
@@ -114,10 +109,7 @@ namespace Transitions
         /// Constructor. You pass in the object that holds the properties 
         /// that you are performing transitions on.
         /// </summary>
-        public Transition(ITransitionType transitionMethod)
-        {
-            _transitionMethod = transitionMethod;
-        }
+        public Transition(ITransitionType transitionMethod) => _transitionMethod = transitionMethod;
 
         /// <summary>
         /// Adds a property that should be animated as part of this transition.
@@ -153,7 +145,7 @@ namespace Transitions
 
             lock (_lock)
             {
-                _listTransitionedProperties.Add(info);
+                TransitionedProperties.Add(info);
             }
         }
 
@@ -164,7 +156,7 @@ namespace Transitions
         {
             // We find the current start values for the properties we 
             // are animating...
-            foreach (var info in _listTransitionedProperties)
+            foreach (var info in TransitionedProperties)
             {
                 var value = info.PropertyInfo.GetValue(info.Target, null);
                 info.StartValue = info.ManagedType.Copy(value);
@@ -176,7 +168,7 @@ namespace Transitions
             _stopwatch.Start();
 
             // We register this transition with the transition manager...
-            TransitionManager.GetInstance().Register(this);
+            TransitionManager.Instance.Register(this);
         }
 
         #endregion
@@ -187,10 +179,7 @@ namespace Transitions
         /// Property that returns a list of information about each property managed
         /// by this transition.
         /// </summary>
-        internal IList<TransitionedPropertyInfo> TransitionedProperties
-        {
-            get { return _listTransitionedProperties; }
-        }
+        internal IList<TransitionedPropertyInfo> TransitionedProperties { get; } = new List<TransitionedPropertyInfo>();
 
         /// <summary>
         /// We remove the property with the info passed in from the transition.
@@ -199,7 +188,7 @@ namespace Transitions
         {
             lock (_lock)
             {
-                _listTransitionedProperties.Remove(info);
+                TransitionedProperties.Remove(info);
             }
         }
 
@@ -217,16 +206,14 @@ namespace Transitions
             int iElapsedTime = (int)_stopwatch.ElapsedMilliseconds;
 
             // b.
-            double dPercentage;
-            bool bCompleted;
-            _transitionMethod.OnTimer(iElapsedTime, out dPercentage, out bCompleted);
+            _transitionMethod.OnTimer(iElapsedTime, out double dPercentage, out bool bCompleted);
 
             // We take a copy of the list of properties we are transitioning, as
             // they can be changed by another thread while this method is running...
             IList<TransitionedPropertyInfo> listTransitionedProperties = new List<TransitionedPropertyInfo>();
             lock (_lock)
             {
-                foreach (TransitionedPropertyInfo info in _listTransitionedProperties)
+                foreach (TransitionedPropertyInfo info in TransitionedProperties)
                 {
                     listTransitionedProperties.Add(info.Copy());
                 }
@@ -388,9 +375,6 @@ namespace Transitions
                 return info;
             }
         }
-
-        // The collection of properties that the current transition is animating...
-        private readonly IList<TransitionedPropertyInfo> _listTransitionedProperties = new List<TransitionedPropertyInfo>();
 
         // Helps us find the time interval from the time the transition starts to each timer tick...
         private readonly Stopwatch _stopwatch = new Stopwatch();

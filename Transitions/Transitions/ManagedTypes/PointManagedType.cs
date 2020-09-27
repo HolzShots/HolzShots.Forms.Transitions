@@ -6,25 +6,22 @@ namespace Transitions.ManagedTypes
     /// <summary>
     /// Class that manages transitions for Point properties.
     /// </summary>
-    internal class Point : IManagedType
+    internal class PointManagedType : IManagedType
     {
         #region IManagedType Members
 
         /// <summary>
         /// Returns the type we are managing.
         /// </summary>
-        public Type GetManagedType()
-        {
-            return typeof(System.Drawing.Point);
-        }
+        public Type GetManagedType() => typeof(Point);
 
         /// <summary>
         /// Returns a copy of the point object passed in.
         /// </summary>
         public object Copy(object o)
         {
-            var c = (System.Drawing.Point)o;
-            return new System.Drawing.Point(c.X, c.Y);
+            var c = (Point)o;
+            return new Point(c.X, c.Y);
         }
 
         /// <summary>
@@ -32,13 +29,13 @@ namespace Transitions.ManagedTypes
         /// </summary>
         public object GetIntermediateValue(object start, object end, double dPercentage)
         {
-            var startPoint = (System.Drawing.Point)start;
-            var endPoint = (System.Drawing.Point)end;
+            var startPoint = (Point)start;
+            var endPoint = (Point)end;
 
             int newX = Utility.Interpolate(startPoint.X, endPoint.X, dPercentage);
             int newY = Utility.Interpolate(startPoint.Y, endPoint.Y, dPercentage);
 
-            return new System.Drawing.Point(newX, newY);
+            return new Point(newX, newY);
         }
 
         #endregion

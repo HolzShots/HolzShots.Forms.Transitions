@@ -63,9 +63,7 @@ namespace Transitions.TransitionTypes
 
             // We check that the elements list has some members...
             if (elements.Count == 0)
-            {
                 throw new Exception("The list of elements passed to the constructor of TransitionType_UserDefined had zero elements. It must have at least one element.");
-            }
         }
 
         #endregion
@@ -153,9 +151,7 @@ namespace Transitions.TransitionTypes
                 TransitionElement element = _elements[_currentElement];
                 double dElementEndTime = element.EndTime / 100.0;
                 if (dTimeFraction < dElementEndTime)
-                {
                     break;
-                }
             }
 
             // If we have gone past the last element, we just use the last element...

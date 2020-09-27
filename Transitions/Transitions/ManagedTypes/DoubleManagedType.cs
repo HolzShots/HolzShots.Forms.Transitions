@@ -5,26 +5,19 @@ namespace Transitions.ManagedTypes
     /// <summary>
     /// Manages transitions for double properties.
     /// </summary>
-    internal class Double : IManagedType
+    internal class DoubleManagedType : IManagedType
     {
         #region IManagedType Members
 
         /// <summary>
         ///  Returns the type managed by this class.
         /// </summary>
-        public Type GetManagedType()
-        {
-            return typeof(double);
-        }
+        public Type GetManagedType() => typeof(double);
 
         /// <summary>
         /// Returns a copy of the double passed in.
         /// </summary>
-        public object Copy(object o)
-        {
-            double d = (double)o;
-            return d;
-        }
+        public object Copy(object o) => (double)o;
 
         /// <summary>
         /// Returns the value between start and end for the percentage passed in.

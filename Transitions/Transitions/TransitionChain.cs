@@ -9,10 +9,8 @@ namespace Transitions
         public TransitionChain(params Transition[] transitions)
         {
             // We store the list of transitions...
-            foreach (Transition transition in transitions)
-            {
+            foreach (var transition in transitions)
                 _listTransitions.AddLast(transition);
-            }
 
             // We start running them...
             RunNextTransition();
@@ -28,9 +26,8 @@ namespace Transitions
         private void RunNextTransition()
         {
             if (_listTransitions.Count == 0)
-            {
                 return;
-            }
+
 
             // We find the next transition and run it. We also register
             // for its completed event, so that we can start the next transition
