@@ -17,7 +17,7 @@ namespace Forms.Transitions.TransitionTypes
         public ThrowAndCatch(int iTransitionTime)
         {
             // We create a custom "user-defined" transition to do the work...
-            IList<TransitionElement> elements = new List<TransitionElement>();
+            var elements = new List<TransitionElement>();
             elements.Add(new TransitionElement(50, 100, InterpolationMethod.Deceleration));
             elements.Add(new TransitionElement(100, 0, InterpolationMethod.Acceleration));
             Setup(elements, iTransitionTime);
