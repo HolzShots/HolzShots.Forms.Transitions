@@ -1,4 +1,5 @@
-# donet-transitions ![CI](https://github.com/nikeee/dotnet-transitions/workflows/CI/badge.svg) ![Nuget Version](https://img.shields.io/nuget/v/Forms.Transitions)
+# `HolzShots.Forms.Transitions` ![CI](https://github.com/HolzShots/HolzShots.Forms.Transitions/workflows/CI/badge.svg) ![Nuget Version](https://img.shields.io/nuget/v/HolzShots.Forms.Transitions)
+> Windows Forms animation library used in [HolzShots](https://github.com/nikeee/HolzShots).
 
 A library for animated UI transitions for Windows Forms.
 
