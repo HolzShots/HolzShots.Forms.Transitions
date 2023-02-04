@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace Forms.Transitions
+namespace HolzShots.Forms.Transitions
 {
     /// <summary>
     /// A class holding static utility functions.
