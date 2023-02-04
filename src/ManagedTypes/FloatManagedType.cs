@@ -19,12 +19,7 @@ namespace Forms.Transitions.ManagedTypes
         /// <summary>
         /// Returns the interpolated value for the percentage passed in.
         /// </summary>
-        public object GetIntermediateValue(object start, object end, double dPercentage)
-        {
-            var fStart = (float)start;
-            var fEnd = (float)end;
-            return Utility.Interpolate(fStart, fEnd, dPercentage);
-        }
+        public object GetIntermediateValue(object start, object end, double dPercentage) => Utility.Interpolate((float)start, (float)end, dPercentage);
 
         #endregion
     }

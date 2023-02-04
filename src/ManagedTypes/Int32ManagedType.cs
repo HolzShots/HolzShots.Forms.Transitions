@@ -22,12 +22,7 @@ namespace Forms.Transitions.ManagedTypes
         /// <summary>
         /// Returns the value between the start and end for the percentage passed in.
         /// </summary>
-        public object GetIntermediateValue(object start, object end, double dPercentage)
-        {
-            int iStart = (int)start;
-            int iEnd = (int)end;
-            return Utility.Interpolate(iStart, iEnd, dPercentage);
-        }
+        public object GetIntermediateValue(object start, object end, double dPercentage) => Utility.Interpolate((int)start, (int)end, dPercentage);
 
         #endregion
     }
