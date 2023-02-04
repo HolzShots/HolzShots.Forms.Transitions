@@ -99,7 +99,7 @@ namespace Forms.Transitions.TransitionTypes
                     dElementDistance = dElementTimeFraction;
                     break;
 
-                case InterpolationMethod.Accleration:
+                case InterpolationMethod.Acceleration:
                     dElementDistance = Utility.ConvertLinearToAcceleration(dElementTimeFraction);
                     break;
 

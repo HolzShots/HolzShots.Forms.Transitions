@@ -18,7 +18,7 @@ namespace Forms.Transitions.TransitionTypes
         {
             // We create a custom "user-defined" transition to do the work...
             IList<TransitionElement> elements = new List<TransitionElement>();
-            elements.Add(new TransitionElement(50, 100, InterpolationMethod.Accleration));
+            elements.Add(new TransitionElement(50, 100, InterpolationMethod.Acceleration));
             elements.Add(new TransitionElement(100, 0, InterpolationMethod.Deceleration));
             Setup(elements, iTransitionTime);
         }
