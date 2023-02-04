@@ -105,7 +105,7 @@ internal class TransitionManager
     /// </summary>
     private TransitionManager()
     {
-        _timer = new Timer(15);
+        _timer = new System.Timers.Timer(15);
         _timer.Elapsed += OnTimerElapsed;
         _timer.Enabled = true;
     }
@@ -170,7 +170,7 @@ internal class TransitionManager
     private readonly IDictionary<Transition, bool> _transitions = new Dictionary<Transition, bool>();
 
     // The timer that controls the transition animation...
-    private readonly Timer _timer;
+    private readonly System.Timers.Timer _timer;
 
     // An object to lock on. This class can be accessed by multiple threads: the
     // user thread can add new transitions; and the timerr thread can be animating

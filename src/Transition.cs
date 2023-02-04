@@ -163,7 +163,7 @@ public class Transition
         }
 
         // We start the stopwatch. We use this when the timer ticks to measure
-        // how long the transition has been runnning for...
+        // how long the transition has been running for...
         _stopwatch.Reset();
         _stopwatch.Start();
 
