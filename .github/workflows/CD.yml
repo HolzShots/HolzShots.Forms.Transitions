@@ -1,22 +1,45 @@
 name: CD
 
+# Based on:
+# https://sc.vern.cc/a-nuget-package-workflow-using-github-actions-7da8c6557863
+# https://dusted.codes/github-actions-for-dotnet-core-nuget-packages#drive-nuget-version-from-git-tags
+
 on:
   push:
+    branches:
+      - "!*"
     tags:
-    - v*
+      - "v*"
+
+env:
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  NUGET_FEED: https://api.nuget.org/v3/index.json
+  NUGET_KEY: ${{ secrets.NUGET_KEY }}
 
 jobs:
   build:
-
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 7.x
+      - uses: actions/checkout@v3
+      - uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.x
 
-    - run: dotnet restore
-    - run: dotnet build --configuration Release --no-restore
-    - run: dotnet pack --configuration Release
-    - run: dotnet nuget push src\bin\Release\*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+      - name: Verify commit exists in origin/master
+        run: |
+          git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
+          git branch --remote --contains | grep origin/master
+      - name: Get Version from Tag
+        run: |
+          arrTag=(${GITHUB_REF//\// })
+          VERSION="${arrTag[2]}"
+          VERSION="${VERSION:1}"
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+      - run: dotnet build --configuration Release -p:Version=${VERSION}
+      - run: dotnet pack --configuration Release -p:Version=${VERSION} --no-build --output .
+      - run: dotnet nuget push HolzShots.Forms.Transitions.${VERSION}.nupkg --source "${NUGET_FEED}" --api-key "${NUGET_KEY}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
