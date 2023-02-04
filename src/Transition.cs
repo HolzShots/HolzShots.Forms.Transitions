@@ -6,9 +6,9 @@ using System.Windows.Forms;
 using System.ComponentModel;
 using HolzShots.Forms.Transitions.ManagedTypes;
 using HolzShots.Forms.Transitions.TransitionTypes;
-using DoubleManagedType = Forms.Transitions.ManagedTypes.DoubleManagedType;
-using Int32ManagedType = Forms.Transitions.ManagedTypes.Int32ManagedType;
-using StringManagedType = Forms.Transitions.ManagedTypes.StringManagedType;
+using DoubleManagedType = HolzShots.Forms.Transitions.ManagedTypes.DoubleManagedType;
+using Int32ManagedType = HolzShots.Forms.Transitions.ManagedTypes.Int32ManagedType;
+using StringManagedType = HolzShots.Forms.Transitions.ManagedTypes.StringManagedType;
 
 namespace HolzShots.Forms.Transitions;
 
