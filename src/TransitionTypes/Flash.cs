@@ -30,8 +30,8 @@ public class Flash : UserDefined
             double dFlashStartTime = i * dFlashInterval;
             double dFlashEndTime = dFlashStartTime + dFlashInterval;
             double dFlashMidPoint = (dFlashStartTime + dFlashEndTime) / 2.0;
-            elements.Add(new TransitionElement(dFlashMidPoint, 100, InterpolationMethod.EaseInEaseOut));
-            elements.Add(new TransitionElement(dFlashEndTime, 0, InterpolationMethod.EaseInEaseOut));
+            elements.Add(new(dFlashMidPoint, 100, InterpolationMethod.EaseInEaseOut));
+            elements.Add(new(dFlashEndTime, 0, InterpolationMethod.EaseInEaseOut));
         }
 
         Setup(elements, iFlashTime * iNumberOfFlashes);

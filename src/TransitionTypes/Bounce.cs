@@ -18,8 +18,8 @@ public class Bounce : UserDefined
     {
         // We create a custom "user-defined" transition to do the work...
         var elements = new List<TransitionElement>() {
-            new TransitionElement(50, 100, InterpolationMethod.Acceleration),
-            new TransitionElement(100, 0, InterpolationMethod.Deceleration),
+            new(50, 100, InterpolationMethod.Acceleration),
+            new(100, 0, InterpolationMethod.Deceleration),
         };
         Setup(elements, iTransitionTime);
     }
