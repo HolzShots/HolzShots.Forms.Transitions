@@ -8,7 +8,6 @@ using HolzShots.Forms.Transitions.ManagedTypes;
 using HolzShots.Forms.Transitions.TransitionTypes;
 using DoubleManagedType = HolzShots.Forms.Transitions.ManagedTypes.DoubleManagedType;
 using Int32ManagedType = HolzShots.Forms.Transitions.ManagedTypes.Int32ManagedType;
-using StringManagedType = HolzShots.Forms.Transitions.ManagedTypes.StringManagedType;
 
 namespace HolzShots.Forms.Transitions;
 
@@ -53,7 +52,6 @@ public class Transition
         RegisterType(new FloatManagedType());
         RegisterType(new DoubleManagedType());
         RegisterType(new ColorManagedType());
-        RegisterType(new StringManagedType());
         RegisterType(new RectangleManagedType());
         RegisterType(new PointManagedType());
     }
