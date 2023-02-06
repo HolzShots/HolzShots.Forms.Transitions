@@ -115,13 +115,13 @@ public class Transition
     public void Add(object target, string strPropertyName, object destinationValue)
     {
         // We get the property info...
-        Type targetType = target.GetType();
-        PropertyInfo propertyInfo = targetType.GetProperty(strPropertyName);
+        var targetType = target.GetType();
+        var propertyInfo = targetType.GetProperty(strPropertyName);
         if (propertyInfo == null)
             throw new ArgumentException($"Object: {target} does not have the property: {strPropertyName}");
 
         // We check that we support the property type...
-        Type propertyType = propertyInfo.PropertyType;
+        var propertyType = propertyInfo.PropertyType;
         if (MapManagedTypes.ContainsKey(propertyType) == false)
             throw new NotSupportedException($"Transition does not handle properties of type: {propertyType}");
 
@@ -129,7 +129,7 @@ public class Transition
         if (propertyInfo.CanRead == false || propertyInfo.CanWrite == false)
             throw new NotSupportedException($"Property is not both getable and setable: {strPropertyName}");
 
-        IManagedType managedType = MapManagedTypes[propertyType];
+        var managedType = MapManagedTypes[propertyType];
 
         // We can manage this type, so we store the information for the
         // transition of this property...
@@ -208,7 +208,7 @@ public class Transition
 
         // We take a copy of the list of properties we are transitioning, as
         // they can be changed by another thread while this method is running...
-        IList<TransitionedPropertyInfo> listTransitionedProperties = new List<TransitionedPropertyInfo>();
+        var listTransitionedProperties = new List<TransitionedPropertyInfo>();
         lock (_lock)
         {
             foreach (TransitionedPropertyInfo info in TransitionedProperties)
@@ -360,18 +360,14 @@ public class Transition
         public PropertyInfo PropertyInfo;
         public IManagedType ManagedType;
 
-        public TransitionedPropertyInfo Copy()
+        public TransitionedPropertyInfo Copy() => new TransitionedPropertyInfo
         {
-            var info = new TransitionedPropertyInfo
-            {
-                StartValue = StartValue,
-                EndValue = EndValue,
-                Target = Target,
-                PropertyInfo = PropertyInfo,
-                ManagedType = ManagedType,
-            };
-            return info;
-        }
+            StartValue = StartValue,
+            EndValue = EndValue,
+            Target = Target,
+            PropertyInfo = PropertyInfo,
+            ManagedType = ManagedType,
+        };
     }
 
     // Helps us find the time interval from the time the transition starts to each timer tick...
