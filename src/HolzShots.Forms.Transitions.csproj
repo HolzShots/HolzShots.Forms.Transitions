@@ -3,7 +3,7 @@
   <PropertyGroup>
     <RootNamespace>HolzShots.Forms.Transitions</RootNamespace>
 
-    <TargetFramework>net7.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <Version>0.0.0</Version> <!-- Set via -p:Version= in CI -->
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
 
