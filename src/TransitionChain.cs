@@ -55,7 +55,7 @@ internal class TransitionChain
     #region Private data
 
     // The list of transitions in the chain...
-    private readonly LinkedList<Transition> _listTransitions = new LinkedList<Transition>();
+    private readonly LinkedList<Transition> _listTransitions = new();
 
     #endregion
 }

@@ -29,7 +29,7 @@ public class Linear : ITransitionType
     /// </summary>
     public void OnTimer(int iTime, out double dPercentage, out bool bCompleted)
     {
-        dPercentage = (iTime / _transitionTime);
+        dPercentage = iTime / _transitionTime;
         if (dPercentage >= 1.0)
         {
             dPercentage = 1.0;

@@ -127,7 +127,7 @@ internal class TransitionManager
         {
             // We take a copy of the collection of transitions as elements
             // might be removed as we iterate through it...
-            listTransitions = new List<Transition>();
+            listTransitions = [];
             foreach (KeyValuePair<Transition, bool> pair in _transitions)
             {
                 listTransitions.Add(pair.Key);
@@ -166,7 +166,7 @@ internal class TransitionManager
     private static TransitionManager _instance;
 
     // The collection of transitions we're managing. (This should really be a set.)
-    private readonly IDictionary<Transition, bool> _transitions = new Dictionary<Transition, bool>();
+    private readonly Dictionary<Transition, bool> _transitions = [];
 
     // The timer that controls the transition animation...
     private readonly System.Timers.Timer _timer;
@@ -175,7 +175,7 @@ internal class TransitionManager
     // user thread can add new transitions; and the timerr thread can be animating
     // them. As they access the same collections, the methods need to be protected
     // by a lock...
-    private readonly object _lock = new object();
+    private readonly Lock _lock = new();
 
     #endregion
 }

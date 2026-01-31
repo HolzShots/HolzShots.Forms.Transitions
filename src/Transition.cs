@@ -36,7 +36,11 @@ namespace HolzShots.Forms.Transitions;
 /// need different parameters.
 ///
 /// </summary>
-public class Transition
+/// <remarks>
+/// Constructor. You pass in the object that holds the properties
+/// that you are performing transitions on.
+/// </remarks>
+public class Transition(ITransitionType transitionMethod)
 {
     #region Registration
 
@@ -97,14 +101,7 @@ public class Transition
     public static void RunChain(params Transition[] transitions) => _ = new TransitionChain(transitions);
 
     #endregion
-
     #region Public methods
-
-    /// <summary>
-    /// Constructor. You pass in the object that holds the properties
-    /// that you are performing transitions on.
-    /// </summary>
-    public Transition(ITransitionType transitionMethod) => _transitionMethod = transitionMethod;
 
     /// <summary>
     /// Adds a property that should be animated as part of this transition.
@@ -174,7 +171,7 @@ public class Transition
     /// Property that returns a list of information about each property managed
     /// by this transition.
     /// </summary>
-    internal IList<TransitionedPropertyInfo> TransitionedProperties { get; } = new List<TransitionedPropertyInfo>();
+    internal List<TransitionedPropertyInfo> TransitionedProperties { get; } = [];
 
     /// <summary>
     /// We remove the property with the info passed in from the transition.
@@ -285,7 +282,7 @@ public class Transition
                 // the UI a chance to process the update. So what we do is to do the
                 // asynchronous BeginInvoke, but then wait (with a short timeout) for
                 // it to complete.
-                IAsyncResult asyncResult = invokeTarget.BeginInvoke(new EventHandler<PropertyUpdateArgs>(SetProperty), new[] { sender, args });
+                IAsyncResult asyncResult = invokeTarget.BeginInvoke(new EventHandler<PropertyUpdateArgs>(SetProperty), [sender, args]);
                 asyncResult.AsyncWaitHandle.WaitOne(50);
             }
             else
@@ -308,12 +305,8 @@ public class Transition
     /// </summary>
     private bool IsDisposed(object target)
     {
-        // Is the object passed in a Control?
-        var controlTarget = target as Control;
-        if (controlTarget == null)
-        {
+        if (target is not Control controlTarget)
             return false;
-        }
 
         // Is it disposed or disposing?
         return controlTarget.IsDisposed || controlTarget.Disposing;
@@ -345,7 +338,7 @@ public class Transition
     #region Private data
 
     // The transition method used by this transition...
-    private readonly ITransitionType _transitionMethod;
+    private readonly ITransitionType _transitionMethod = transitionMethod;
 
     // Holds information about one property on one taregt object that we are performing
     // a transition on...
@@ -357,7 +350,7 @@ public class Transition
         public PropertyInfo PropertyInfo;
         public IManagedType ManagedType;
 
-        public TransitionedPropertyInfo Copy() => new TransitionedPropertyInfo
+        public TransitionedPropertyInfo Copy() => new()
         {
             StartValue = StartValue,
             EndValue = EndValue,
@@ -368,25 +361,19 @@ public class Transition
     }
 
     // Helps us find the time interval from the time the transition starts to each timer tick...
-    private readonly Stopwatch _stopwatch = new Stopwatch();
+    private readonly Stopwatch _stopwatch = new();
 
     // Event args used for the event we raise when updating a property...
-    private class PropertyUpdateArgs : EventArgs
+    private class PropertyUpdateArgs(object t, PropertyInfo pi, object v) : EventArgs
     {
-        public PropertyUpdateArgs(object t, PropertyInfo pi, object v)
-        {
-            Target = t;
-            PropertyInfo = pi;
-            Value = v;
-        }
-        public readonly object Target;
-        public readonly PropertyInfo PropertyInfo;
-        public readonly object Value;
+        public readonly object Target = t;
+        public readonly PropertyInfo PropertyInfo = pi;
+        public readonly object Value = v;
     }
 
     // An object used to lock the list of transitioned properties, as it can be
     // accessed by multiple threads...
-    private readonly object _lock = new object();
+    private readonly Lock _lock = new();
 
     #endregion
 }

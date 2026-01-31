@@ -116,7 +116,7 @@ namespace HolzShots.Forms.Transitions
                     {
                         // The target is most likely a form or control that needs the
                         // handler to be invoked on its own thread...
-                        target.BeginInvoke(handler, new[] { sender, args });
+                        target.BeginInvoke(handler, [sender, args]);
                     }
                 }
                 catch (Exception)
