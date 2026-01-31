@@ -24,7 +24,7 @@ internal class PointManagedType : IManagedType
     /// <summary>
     /// Creates an intermediate value for the points depending on the percentage passed in.
     /// </summary>
-    public object GetIntermediateValue(object start, object end, double percentage)
+    public object GetIntermediateValue(object start, object end, float percentage)
     {
         var startPoint = (Point)start;
         var endPoint = (Point)end;

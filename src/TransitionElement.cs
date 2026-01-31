@@ -19,4 +19,4 @@ public enum InterpolationMethod
 /// The interpolation method to use when moving between the previous value
 /// and the current one.
 /// </param>
-public record TransitionElement(double EndTime, double EndValue, InterpolationMethod InterpolationMethod);
+public record TransitionElement(float EndTime, float EndValue, InterpolationMethod InterpolationMethod);

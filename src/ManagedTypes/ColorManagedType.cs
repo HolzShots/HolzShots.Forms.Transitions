@@ -26,7 +26,7 @@ internal class ColorManagedType : IManagedType
     /// <summary>
     /// Creates an intermediate value for the colors depending on the percentage passed in.
     /// </summary>
-    public object GetIntermediateValue(object start, object end, double percentage)
+    public object GetIntermediateValue(object start, object end, float percentage)
     {
         var startColor = (Color)start;
         var endColor = (Color)end;

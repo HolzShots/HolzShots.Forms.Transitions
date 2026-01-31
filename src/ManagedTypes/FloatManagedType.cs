@@ -17,7 +17,7 @@ internal class FloatManagedType : IManagedType
     /// <summary>
     /// Returns the interpolated value for the percentage passed in.
     /// </summary>
-    public object GetIntermediateValue(object start, object end, double percentage) => Utility.Interpolate((float)start, (float)end, percentage);
+    public object GetIntermediateValue(object start, object end, float percentage) => Utility.Interpolate((float)start, (float)end, percentage);
 
     #endregion
 }

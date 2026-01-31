@@ -198,7 +198,7 @@ public class Transition(ITransitionType transitionMethod)
         int iElapsedTime = (int)_stopwatch.ElapsedMilliseconds;
 
         // b.
-        _transitionMethod.OnTimer(iElapsedTime, out double percentage, out bool bCompleted);
+        _transitionMethod.OnTimer(iElapsedTime, out float percentage, out bool bCompleted);
 
         // We take a copy of the list of properties we are transitioning, as
         // they can be changed by another thread while this method is running...

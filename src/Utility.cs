@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Numerics;
 
 namespace HolzShots.Forms.Transitions
 {
@@ -20,45 +21,37 @@ namespace HolzShots.Forms.Transitions
             propertyInfo.SetValue(target, value, null);
         }
 
-        /// <summary>Returns a value between d1 and d2 for the percentage passed in.</summary>
-        public static double Interpolate(double d1, double d2, double percentage)
-        {
-            var dDifference = d2 - d1;
-            var dDistance = dDifference * percentage;
-            var dResult = d1 + dDistance;
-            return dResult;
-        }
-
-        /// <summary>Returns a value betweeen i1 and i2 for the percentage passed in.</summary>
-        public static int Interpolate(int i1, int i2, double percentage) => (int)Interpolate((double)i1, i2, percentage);
-
-        /// <summary>Returns a value betweeen f1 and f2 for the percentage passed in.</summary>
-        public static float Interpolate(float f1, float f2, double percentage) => (float)Interpolate((double)f1, f2, percentage);
+        public static double Interpolate(double a, double b, double percentage) => a + ((b - a) * percentage);
+        public static int Interpolate(int a, int b, float percentage) => (int)(a + ((b - a) * percentage));
+        public static float Interpolate(float a, float b, float percentage) => a + ((b - a) * percentage);
+        public static Vector2 Interpolate(Vector2 a, Vector2 b, float percentage) => a + ((b - a) * percentage);
+        public static Vector3 Interpolate(Vector3 a, Vector3 b, float percentage) => a + ((b - a) * percentage);
+        public static Vector4 Interpolate(Vector4 a, Vector4 b, float percentage) => a + ((b - a) * percentage);
 
         /// <summary>
         /// Converts a fraction representing linear time to a fraction representing
         /// the distance traveled under an ease-in-ease-out transition.
         /// </summary>
-        public static double ConvertLinearToEaseInEaseOut(double elapsed)
+        public static float ConvertLinearToEaseInEaseOut(float elapsed)
         {
             // The distance traveled is made up of two parts: the initial acceleration,
             // and then the subsequent deceleration...
-            var dFirstHalfTime = (elapsed > 0.5) ? 0.5 : elapsed;
-            var secondHalfTime = (elapsed > 0.5) ? elapsed - 0.5 : 0.0;
-            return 2 * dFirstHalfTime * dFirstHalfTime + 2 * secondHalfTime * (1.0 - secondHalfTime);
+            var firstHalfTime = (elapsed > 0.5f) ? 0.5f : elapsed;
+            var secondHalfTime = (elapsed > 0.5f) ? elapsed - 0.5f : 0.0f;
+            return 2 * firstHalfTime * firstHalfTime + 2 * secondHalfTime * (1.0f - secondHalfTime);
         }
 
         /// <summary>
         /// Converts a fraction representing linear time to a fraction representing
         /// the distance traveled under a constant acceleration transition.
         /// </summary>
-        public static double ConvertLinearToAcceleration(double elapsed) => elapsed * elapsed;
+        public static float ConvertLinearToAcceleration(float elapsed) => elapsed * elapsed;
 
         /// <summary>
         /// Converts a fraction representing linear time to a fraction representing
         /// the distance traveled under a constant deceleration transition.
         /// </summary>
-        public static double ConvertLinearToDeceleration(double elapsed) => elapsed * (2.0 - elapsed);
+        public static float ConvertLinearToDeceleration(float elapsed) => elapsed * (2.0f - elapsed);
 
         /// <summary>
         /// Fires the event passed in in a thread-safe way.
@@ -83,8 +76,7 @@ namespace HolzShots.Forms.Transitions
             {
                 try
                 {
-                    var target = handler.Target as ISynchronizeInvoke;
-                    if (target == null || !target.InvokeRequired)
+                    if (handler.Target is not ISynchronizeInvoke target || !target.InvokeRequired)
                     {
                         // Either the target is not a form or control, or we are already
                         // on the right thread for it. Either way we can just fire the

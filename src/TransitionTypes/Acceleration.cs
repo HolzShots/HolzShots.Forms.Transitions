@@ -31,14 +31,14 @@ public class Acceleration : ITransitionType
     /// at t=1.0 is 2, so the formula just becomes:
     ///   s = t^2
     /// </summary>
-    public void OnTimer(int iTime, out double percentage, out bool bCompleted)
+    public void OnTimer(int time, out float percentage, out bool bCompleted)
     {
         // We find the percentage time elapsed...
-        var dElapsed = iTime / _transitionTime;
-        percentage = dElapsed * dElapsed;
-        if (dElapsed >= 1.0)
+        var elapsed = time / _transitionTime;
+        percentage = elapsed * elapsed;
+        if (elapsed >= 1.0)
         {
-            percentage = 1.0;
+            percentage = 1.0f;
             bCompleted = true;
         }
         else
@@ -51,7 +51,7 @@ public class Acceleration : ITransitionType
 
     #region Private data
 
-    private readonly double _transitionTime;
+    private readonly float _transitionTime;
 
     #endregion
 }

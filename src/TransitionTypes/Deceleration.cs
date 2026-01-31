@@ -32,14 +32,14 @@ public class Deceleration : ITransitionType
     /// at t=1.0 is -2, so the formula becomes:
     ///   s = t(2-t)
     /// </summary>
-    public void OnTimer(int iTime, out double percentage, out bool bCompleted)
+    public void OnTimer(int time, out float percentage, out bool bCompleted)
     {
         // We find the percentage time elapsed...
-        double dElapsed = iTime / _transitionTime;
-        percentage = dElapsed * (2.0 - dElapsed);
-        if (dElapsed >= 1.0)
+        var elapsed = time / _transitionTime;
+        percentage = elapsed * (2.0f - elapsed);
+        if (elapsed >= 1.0)
         {
-            percentage = 1.0;
+            percentage = 1.0f;
             bCompleted = true;
         }
         else
@@ -52,7 +52,7 @@ public class Deceleration : ITransitionType
 
     #region Private data
 
-    private readonly double _transitionTime;
+    private readonly float _transitionTime;
 
     #endregion
 }

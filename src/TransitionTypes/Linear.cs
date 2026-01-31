@@ -12,12 +12,12 @@ public class Linear : ITransitionType
     /// Constructor. You pass in the time (in milliseconds) that the
     /// transition will take.
     /// </summary>
-    public Linear(int iTransitionTime)
+    public Linear(int transitionTime)
     {
-        if (iTransitionTime <= 0)
+        if (transitionTime <= 0)
             throw new Exception("Transition time must be greater than zero.");
 
-        _transitionTime = iTransitionTime;
+        _transitionTime = transitionTime;
     }
 
     #endregion
@@ -27,12 +27,12 @@ public class Linear : ITransitionType
     /// <summary>
     /// We return the percentage completed.
     /// </summary>
-    public void OnTimer(int iTime, out double percentage, out bool completed)
+    public void OnTimer(int iTime, out float percentage, out bool completed)
     {
         percentage = iTime / _transitionTime;
         if (percentage >= 1.0)
         {
-            percentage = 1.0;
+            percentage = 1.0f;
             completed = true;
         }
         else
@@ -45,7 +45,7 @@ public class Linear : ITransitionType
 
     #region Private data
 
-    private readonly double _transitionTime;
+    private readonly float _transitionTime;
 
     #endregion
 }

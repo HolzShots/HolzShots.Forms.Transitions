@@ -25,7 +25,7 @@ internal class RectangleManagedType : IManagedType
     /// <summary>
     /// Creates an intermediate value for the rectangles depending on the percentage passed in.
     /// </summary>
-    public object GetIntermediateValue(object start, object end, double percentage)
+    public object GetIntermediateValue(object start, object end, float percentage)
     {
         var startRectangle = (Rectangle)start;
         var endRectangle = (Rectangle)end;

@@ -31,20 +31,20 @@ public class EaseInEaseOut : ITransitionType
     /// We accelerate as at the rate needed (a=4) to get to 0.5 at t=0.5, and
     /// then decelerate at the same rate to end up at 1.0 at t=1.0.
     /// </summary>
-    public void OnTimer(int iTime, out double percentage, out bool bCompleted)
+    public void OnTimer(int time, out float percentage, out bool completed)
     {
         // We find the percentage time elapsed...
-        double dElapsed = iTime / _transitionTime;
-        percentage = Utility.ConvertLinearToEaseInEaseOut(dElapsed);
+        var elapsed = time / _transitionTime;
+        percentage = Utility.ConvertLinearToEaseInEaseOut(elapsed);
 
-        if (dElapsed >= 1.0)
+        if (elapsed >= 1.0)
         {
-            percentage = 1.0;
-            bCompleted = true;
+            percentage = 1.0f;
+            completed = true;
         }
         else
         {
-            bCompleted = false;
+            completed = false;
         }
     }
 
@@ -52,7 +52,7 @@ public class EaseInEaseOut : ITransitionType
 
     #region Private data
 
-    private readonly double _transitionTime;
+    private readonly float _transitionTime;
 
     #endregion
 }
