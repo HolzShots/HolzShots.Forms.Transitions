@@ -2,7 +2,6 @@
 
 namespace HolzShots.Forms.Transitions;
 
-
 /// <summary>
 /// This class is responsible for running transitions. It holds the timer that
 /// triggers transaction animation.
@@ -20,11 +19,6 @@ namespace HolzShots.Forms.Transitions;
 /// </remarks>
 internal class TransitionManager
 {
-    #region Public methods
-
-    /// <summary>
-    /// Singleton's getInstance method.
-    /// </summary>
     public static TransitionManager Instance => _instance ??= new TransitionManager();
 
     /// <summary>
@@ -45,10 +39,6 @@ internal class TransitionManager
             transition.TransitionCompletedEvent += OnTransitionCompleted;
         }
     }
-
-    #endregion
-
-    #region Private functions
 
     /// <summary>
     /// Checks if any existing transitions are acting on the same properties as the
@@ -99,9 +89,6 @@ internal class TransitionManager
         }
     }
 
-    /// <summary>
-    /// Private constructor (for singleton).
-    /// </summary>
     private TransitionManager()
     {
         _timer = new System.Timers.Timer(15);
@@ -109,9 +96,6 @@ internal class TransitionManager
         _timer.Enabled = true;
     }
 
-    /// <summary>
-    /// Called when the timer ticks.
-    /// </summary>
     private void OnTimerElapsed(object sender, ElapsedEventArgs e)
     {
         // We turn the timer off while we process the tick, in case the
@@ -142,9 +126,6 @@ internal class TransitionManager
         _timer.Enabled = true;
     }
 
-    /// <summary>
-    /// Called when a transition has completed.
-    /// </summary>
     private void OnTransitionCompleted(object sender, Transition.Args e)
     {
         // We stop observing the transition...
@@ -157,10 +138,6 @@ internal class TransitionManager
             _transitions.Remove(transition);
         }
     }
-
-    #endregion
-
-    #region Private data
 
     private static TransitionManager _instance;
 
@@ -175,6 +152,4 @@ internal class TransitionManager
     // them. As they access the same collections, the methods need to be protected
     // by a lock...
     private readonly Lock _lock = new();
-
-    #endregion
 }

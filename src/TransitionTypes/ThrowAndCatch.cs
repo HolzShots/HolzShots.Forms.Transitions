@@ -7,11 +7,6 @@
 /// </summary>
 public class ThrowAndCatch : UserDefined
 {
-    #region Public methods
-
-    /// <summary>
-    /// Constructor. You pass in the total time taken for the bounce.
-    /// </summary>
     public ThrowAndCatch(int transitionTime)
     {
         // We create a custom "user-defined" transition to do the work...
@@ -21,6 +16,4 @@ public class ThrowAndCatch : UserDefined
         };
         Setup(elements, transitionTime);
     }
-
-    #endregion
 }

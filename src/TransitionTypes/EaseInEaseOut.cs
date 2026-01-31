@@ -6,21 +6,13 @@
 /// </summary>
 public class EaseInEaseOut : ITransitionType
 {
-    #region Public methods
 
-    /// <summary>
-    /// Constructor. You pass in the time that the transition
-    /// will take (in milliseconds).
-    /// </summary>
+    private readonly float _transitionTime;
     public EaseInEaseOut(int transitionTime)
     {
         ArgumentOutOfRangeException.ThrowIfLessThan(transitionTime, 0);
         _transitionTime = transitionTime;
     }
-
-    #endregion
-
-    #region ITransitionMethod Members
 
     /// <summary>
     /// Works out the percentage completed given the time passed in.
@@ -45,12 +37,4 @@ public class EaseInEaseOut : ITransitionType
             completed = false;
         }
     }
-
-    #endregion
-
-    #region Private data
-
-    private readonly float _transitionTime;
-
-    #endregion
 }

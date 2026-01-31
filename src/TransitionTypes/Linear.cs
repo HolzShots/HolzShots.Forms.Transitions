@@ -6,25 +6,13 @@
 /// </summary>
 public class Linear : ITransitionType
 {
-    #region Public methods
-
-    /// <summary>
-    /// Constructor. You pass in the time (in milliseconds) that the
-    /// transition will take.
-    /// </summary>
+    private readonly float _transitionTime;
     public Linear(int transitionTime)
     {
         ArgumentOutOfRangeException.ThrowIfLessThan(transitionTime, 0);
         _transitionTime = transitionTime;
     }
 
-    #endregion
-
-    #region ITransitionMethod Members
-
-    /// <summary>
-    /// We return the percentage completed.
-    /// </summary>
     public void OnTimer(int time, out float percentage, out bool completed)
     {
         percentage = time / _transitionTime;
@@ -38,12 +26,4 @@ public class Linear : ITransitionType
             completed = false;
         }
     }
-
-    #endregion
-
-    #region Private data
-
-    private readonly float _transitionTime;
-
-    #endregion
 }

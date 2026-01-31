@@ -1,6 +1,5 @@
 ﻿namespace HolzShots.Forms.Transitions.ManagedTypes;
 
-
 internal class RectangleManagedType : IManagedType
 {
     public Type GetManagedType() => typeof(Rectangle);

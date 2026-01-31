@@ -34,7 +34,9 @@
 /// </summary>
 public class UserDefined : ITransitionType
 {
-    #region Public methods
+    private IList<TransitionElement> _elements;
+    private float _transitionTime;
+    private int _currentElement;
 
     public UserDefined() { }
 
@@ -47,9 +49,6 @@ public class UserDefined : ITransitionType
         Setup(elements, transitionTime);
     }
 
-    /// <summary>
-    /// Sets up the transitions.
-    /// </summary>
     public void Setup(IList<TransitionElement> elements, int transitionTime)
     {
         _elements = elements;
@@ -60,13 +59,6 @@ public class UserDefined : ITransitionType
             throw new Exception("The list of elements passed to the constructor of TransitionType_UserDefined had zero elements. It must have at least one element.");
     }
 
-    #endregion
-
-    #region ITransitionMethod Members
-
-    /// <summary>
-    /// Called to find the value for the movement of properties for the time passed in.
-    /// </summary>
     public void OnTimer(int time, out float percentage, out bool completed)
     {
         var transitionTimeFraction = time / _transitionTime;
@@ -113,9 +105,7 @@ public class UserDefined : ITransitionType
         }
     }
 
-    /// <summary>
-    /// Returns the element info for the time-fraction passed in.
-    /// </summary>
+    /// <summary>Returns the element info for the time-fraction passed in.</summary>
     private void GetElementInfo(float timeFraction, out float startTime, out float endTime, out float startValue, out float endValue, out InterpolationMethod interpolationMethod)
     {
         // We need to return the start and end values for the current element. So this
@@ -157,19 +147,4 @@ public class UserDefined : ITransitionType
         endValue = currentElement.EndValue / 100.0f;
         interpolationMethod = currentElement.InterpolationMethod;
     }
-
-    #endregion
-
-    #region Private data
-
-    // The collection of elements that make up the transition...
-    private IList<TransitionElement> _elements;
-
-    // The total transition time...
-    private float _transitionTime;
-
-    // The element that we are currently in (i.e. the current time within this element)...
-    private int _currentElement;
-
-    #endregion
 }

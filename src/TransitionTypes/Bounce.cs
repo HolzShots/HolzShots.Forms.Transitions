@@ -7,11 +7,6 @@
 /// </summary>
 public class Bounce : UserDefined
 {
-    #region Public methods
-
-    /// <summary>
-    /// Constructor. You pass in the total time taken for the bounce.
-    /// </summary>
     public Bounce(int transitionTime)
     {
         // We create a custom "user-defined" transition to do the work...
@@ -21,6 +16,4 @@ public class Bounce : UserDefined
         };
         Setup(elements, transitionTime);
     }
-
-    #endregion
 }

@@ -6,21 +6,12 @@
 /// </summary>
 public class CriticalDamping : ITransitionType
 {
-    #region Public methods
-
-    /// <summary>
-    /// Constructor. You pass in the time that the transition
-    /// will take (in milliseconds).
-    /// </summary>
+    private readonly float _transitionTime;
     public CriticalDamping(int transitionTime)
     {
         ArgumentOutOfRangeException.ThrowIfLessThan(transitionTime, 0);
         _transitionTime = transitionTime;
     }
-
-    #endregion
-
-    #region ITransitionMethod Members
 
     public void OnTimer(int iTime, out float percentage, out bool completed)
     {
@@ -37,12 +28,4 @@ public class CriticalDamping : ITransitionType
             completed = false;
         }
     }
-
-    #endregion
-
-    #region Private data
-
-    private readonly float _transitionTime;
-
-    #endregion
 }

@@ -7,8 +7,6 @@
 /// </summary>
 public class Flash : UserDefined
 {
-    #region Public methods
-
     /// <summary>
     /// You specify the number of bounces and the time taken for each bounce.
     /// </summary>
@@ -34,7 +32,4 @@ public class Flash : UserDefined
 
         Setup(elements, flashTime * numberOfFlashes);
     }
-
-    #endregion
-
 }

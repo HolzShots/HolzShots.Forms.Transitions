@@ -42,11 +42,7 @@ namespace HolzShots.Forms.Transitions;
 /// </remarks>
 public class Transition(ITransitionType transitionMethod)
 {
-    #region Registration
-
-    /// <summary>
-    /// You should register all managed-types here.
-    /// </summary>
+    /// <summary>You should register all managed-types here.</summary>
     static Transition()
     {
         RegisterType(new Int32ManagedType());
@@ -57,27 +53,13 @@ public class Transition(ITransitionType transitionMethod)
         RegisterType(new PointManagedType());
     }
 
-    #endregion
-
-    #region Events
-
-    /// <summary>
-    /// Args passed with the TransitionCompletedEvent.
-    /// </summary>
+    /// <summary>Args passed with the TransitionCompletedEvent.</summary>
     public class Args : EventArgs { }
 
-    /// <summary>
-    /// Event raised when the transition hass completed.
-    /// </summary>
+    /// <summary>Event raised when the transition hass completed.</summary>
     public event EventHandler<Args> TransitionCompletedEvent;
 
-    #endregion
-
-    #region Public static methods
-
-    /// <summary>
-    /// Creates and immediately runs a transition on the property passed in.
-    /// </summary>
+    /// <summary>Creates and immediately runs a transition on the property passed in.</summary>
     public static void Run(object target, string strPropertyName, object destinationValue, ITransitionType transitionMethod)
     {
         var t = new Transition(transitionMethod);
@@ -95,17 +77,10 @@ public class Transition(ITransitionType transitionMethod)
         Run(target, strPropertyName, destinationValue, transitionMethod);
     }
 
-    /// <summary>
-    /// Creates a TransitionChain and runs it.
-    /// </summary>
+    /// <summary>Creates a TransitionChain and runs it.</summary>
     public static void RunChain(params Transition[] transitions) => _ = new TransitionChain(transitions);
 
-    #endregion
-    #region Public methods
-
-    /// <summary>
-    /// Adds a property that should be animated as part of this transition.
-    /// </summary>
+    /// <summary>Adds a property that should be animated as part of this transition.</summary>
     public void Add(object target, string strPropertyName, object destinationValue)
     {
         var targetType = target.GetType();
@@ -156,10 +131,6 @@ public class Transition(ITransitionType transitionMethod)
         // We register this transition with the transition manager...
         TransitionManager.Instance.Register(this);
     }
-
-    #endregion
-
-    #region Internal methods
 
     /// <summary>
     /// Property that returns a list of information about each property managed
@@ -221,10 +192,6 @@ public class Transition(ITransitionType transitionMethod)
             Utility.RaiseEvent(TransitionCompletedEvent, this, new Args());
         }
     }
-
-    #endregion
-
-    #region Private functions
 
     /// <summary>
     /// Sets a property on the object passed in to the value passed in. This method
@@ -301,10 +268,6 @@ public class Transition(ITransitionType transitionMethod)
         return controlTarget.IsDisposed || controlTarget.Disposing;
     }
 
-    #endregion
-
-    #region Private static functions
-
     /// <summary>
     /// Registers a transition-type. We hold them in a map.
     /// </summary>
@@ -313,18 +276,10 @@ public class Transition(ITransitionType transitionMethod)
         var type = transitionType.GetManagedType();
         MapManagedTypes[type] = transitionType;
     }
-
-    #endregion
-
-    #region Private static data
-
     // A map of Type info to IManagedType objects. These are all the types that we
     // know how to perform transactions on...
     private static readonly IDictionary<Type, IManagedType> MapManagedTypes = new Dictionary<Type, IManagedType>();
 
-    #endregion
-
-    #region Private data
 
     // The transition method used by this transition...
     private readonly ITransitionType _transitionMethod = transitionMethod;
@@ -363,6 +318,4 @@ public class Transition(ITransitionType transitionMethod)
     // An object used to lock the list of transitioned properties, as it can be
     // accessed by multiple threads...
     private readonly Lock _lock = new();
-
-    #endregion
 }

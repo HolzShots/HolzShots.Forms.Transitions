@@ -2,7 +2,7 @@
 
 internal class TransitionChain
 {
-    #region Public methods
+    private readonly LinkedList<Transition> _listTransitions = new();
 
     public TransitionChain(params Transition[] transitions)
     {
@@ -11,18 +11,10 @@ internal class TransitionChain
         RunNextTransition();
     }
 
-    #endregion
-
-    #region Private functions
-
-    /// <summary>
-    /// Runs the next transition in the list.
-    /// </summary>
     private void RunNextTransition()
     {
         if (_listTransitions.Count == 0)
             return;
-
 
         // We find the next transition and run it. We also register
         // for its completed event, so that we can start the next transition
@@ -32,9 +24,6 @@ internal class TransitionChain
         nextTransition.Run();
     }
 
-    /// <summary>
-    /// Called when the transition we have just run has completed.
-    /// </summary>
     private void OnTransitionCompleted(object sender, Transition.Args e)
     {
         // We unregister from the completed event...
@@ -46,12 +35,4 @@ internal class TransitionChain
         _listTransitions.RemoveFirst();
         RunNextTransition();
     }
-
-    #endregion
-
-    #region Private data
-
-    private readonly LinkedList<Transition> _listTransitions = new();
-
-    #endregion
 }
