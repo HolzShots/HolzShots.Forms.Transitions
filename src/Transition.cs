@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Diagnostics;
-using System.Windows.Forms;
-using System.ComponentModel;
-using HolzShots.Forms.Transitions.ManagedTypes;
+﻿using HolzShots.Forms.Transitions.ManagedTypes;
 using HolzShots.Forms.Transitions.TransitionTypes;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Reflection;
 using DoubleManagedType = HolzShots.Forms.Transitions.ManagedTypes.DoubleManagedType;
 using Int32ManagedType = HolzShots.Forms.Transitions.ManagedTypes.Int32ManagedType;
 

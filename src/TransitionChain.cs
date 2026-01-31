@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace HolzShots.Forms.Transitions;
+﻿namespace HolzShots.Forms.Transitions;
 
 internal class TransitionChain
 {

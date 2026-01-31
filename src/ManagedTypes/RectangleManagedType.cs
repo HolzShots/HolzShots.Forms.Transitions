@@ -1,7 +1,4 @@
-﻿using System;
-using System.Drawing;
-
-namespace HolzShots.Forms.Transitions.ManagedTypes;
+﻿namespace HolzShots.Forms.Transitions.ManagedTypes;
 
 
 /// <summary>

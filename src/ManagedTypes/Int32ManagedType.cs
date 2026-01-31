@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace HolzShots.Forms.Transitions.ManagedTypes;
+﻿namespace HolzShots.Forms.Transitions.ManagedTypes;
 
 /// <summary>
 /// Manages transitions for int properties.

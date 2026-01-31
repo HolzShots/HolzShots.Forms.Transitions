@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace HolzShots.Forms.Transitions.TransitionTypes;
+﻿namespace HolzShots.Forms.Transitions.TransitionTypes;
 
 /// <summary>
 /// This transition animates with an exponential decay. This has a damping effect

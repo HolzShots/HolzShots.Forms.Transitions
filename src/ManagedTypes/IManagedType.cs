@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace HolzShots.Forms.Transitions.ManagedTypes;
+﻿namespace HolzShots.Forms.Transitions.ManagedTypes;
 
 /// <summary>
 /// Interface for all types we can perform transitions on.

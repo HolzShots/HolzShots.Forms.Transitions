@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace HolzShots.Forms.Transitions.TransitionTypes;
+﻿namespace HolzShots.Forms.Transitions.TransitionTypes;
 
 /// <summary>
 /// Manages a transition starting from a high speed and decelerating to zero by

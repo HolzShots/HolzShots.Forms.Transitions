@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Timers;
+﻿using System.Timers;
 
 namespace HolzShots.Forms.Transitions;
 
