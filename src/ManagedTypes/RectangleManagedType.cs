@@ -1,4 +1,6 @@
-﻿namespace HolzShots.Forms.Transitions.ManagedTypes;
+﻿using System.Numerics;
+
+namespace HolzShots.Forms.Transitions.ManagedTypes;
 
 internal class RectangleManagedType : IManagedType
 {
@@ -13,11 +15,20 @@ internal class RectangleManagedType : IManagedType
         var startRectangle = (Rectangle)start;
         var endRectangle = (Rectangle)end;
 
-        int newX = Utility.Interpolate(startRectangle.X, endRectangle.X, percentage);
-        int newY = Utility.Interpolate(startRectangle.Y, endRectangle.Y, percentage);
-        int newWidth = Utility.Interpolate(startRectangle.Width, endRectangle.Width, percentage);
-        int newHeight = Utility.Interpolate(startRectangle.Height, endRectangle.Height, percentage);
+        var startVector = new Vector4(
+            startRectangle.X,
+            startRectangle.Y,
+            startRectangle.Width,
+            startRectangle.Height
+        );
+        var endVector = new Vector4(
+            endRectangle.X,
+            endRectangle.Y,
+            endRectangle.Width,
+            endRectangle.Height
+        );
 
-        return new Rectangle(newX, newY, newWidth, newHeight);
+        var res = Utility.Interpolate(startVector, endVector, percentage);
+        return new Rectangle((int)res.X, (int)res.Y, (int)res.Z, (int)res.W);
     }
 }

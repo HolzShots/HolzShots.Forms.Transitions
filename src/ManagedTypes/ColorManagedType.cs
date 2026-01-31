@@ -1,4 +1,6 @@
-﻿namespace HolzShots.Forms.Transitions.ManagedTypes;
+﻿using System.Numerics;
+
+namespace HolzShots.Forms.Transitions.ManagedTypes;
 
 internal class ColorManagedType : IManagedType
 {
@@ -8,11 +10,21 @@ internal class ColorManagedType : IManagedType
     {
         var startColor = (Color)start;
         var endColor = (Color)end;
-        return Color.FromArgb(
-            Utility.Interpolate(startColor.A, endColor.A, percentage),
-            Utility.Interpolate(startColor.R, endColor.R, percentage),
-            Utility.Interpolate(startColor.G, endColor.G, percentage),
-            Utility.Interpolate(startColor.B, endColor.B, percentage)
+        var startVector = new Vector4(
+            startColor.A,
+            startColor.R,
+            startColor.G,
+            startColor.B
         );
+        var endVector = new Vector4(
+            endColor.A,
+            endColor.R,
+            endColor.G,
+            endColor.B
+        );
+
+        var res = Utility.Interpolate(startVector, endVector, percentage);
+
+        return Color.FromArgb((int)res.X, (int)res.Y, (int)res.Z, (int)res.W);
     }
 }

@@ -13,9 +13,9 @@ internal class PointManagedType : IManagedType
         var startPoint = (Point)start;
         var endPoint = (Point)end;
 
-        int newX = Utility.Interpolate(startPoint.X, endPoint.X, percentage);
-        int newY = Utility.Interpolate(startPoint.Y, endPoint.Y, percentage);
-
-        return new Point(newX, newY);
+        return new Point(
+            Utility.Interpolate(startPoint.X, endPoint.X, percentage),
+            Utility.Interpolate(startPoint.Y, endPoint.Y, percentage)
+        );
     }
 }
