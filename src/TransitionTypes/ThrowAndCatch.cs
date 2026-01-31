@@ -12,14 +12,14 @@ public class ThrowAndCatch : UserDefined
     /// <summary>
     /// Constructor. You pass in the total time taken for the bounce.
     /// </summary>
-    public ThrowAndCatch(int iTransitionTime)
+    public ThrowAndCatch(int transitionTime)
     {
         // We create a custom "user-defined" transition to do the work...
         var elements = new List<TransitionElement>() {
             new(50, 100, InterpolationMethod.Deceleration),
             new(100, 0, InterpolationMethod.Acceleration),
         };
-        Setup(elements, iTransitionTime);
+        Setup(elements, transitionTime);
     }
 
     #endregion

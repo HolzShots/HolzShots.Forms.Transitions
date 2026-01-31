@@ -74,8 +74,8 @@ internal class TransitionManager
         //       timer, so I don't think this matters too much.
 
         // We get the list of properties for the old and new transitions...
-        IList<Transition.TransitionedPropertyInfo> newProperties = newTransition.TransitionedProperties;
-        IList<Transition.TransitionedPropertyInfo> oldProperties = oldTransition.TransitionedProperties;
+        var newProperties = newTransition.TransitionedProperties;
+        var oldProperties = oldTransition.TransitionedProperties;
 
         // We loop through the old properties backwards (as we may be removing
         // items from the list if we find a match)...

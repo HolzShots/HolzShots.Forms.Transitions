@@ -12,12 +12,10 @@ public class Deceleration : ITransitionType
     /// Constructor. You pass in the time that the transition
     /// will take (in milliseconds).
     /// </summary>
-    public Deceleration(int iTransitionTime)
+    public Deceleration(int transitionTime)
     {
-        if (iTransitionTime <= 0)
-            throw new Exception("Transition time must be greater than zero.");
-
-        _transitionTime = iTransitionTime;
+        ArgumentOutOfRangeException.ThrowIfLessThan(transitionTime, 0);
+        _transitionTime = transitionTime;
     }
 
     #endregion
@@ -32,7 +30,7 @@ public class Deceleration : ITransitionType
     /// at t=1.0 is -2, so the formula becomes:
     ///   s = t(2-t)
     /// </summary>
-    public void OnTimer(int time, out float percentage, out bool bCompleted)
+    public void OnTimer(int time, out float percentage, out bool completed)
     {
         // We find the percentage time elapsed...
         var elapsed = time / _transitionTime;
@@ -40,11 +38,11 @@ public class Deceleration : ITransitionType
         if (elapsed >= 1.0)
         {
             percentage = 1.0f;
-            bCompleted = true;
+            completed = true;
         }
         else
         {
-            bCompleted = false;
+            completed = false;
         }
     }
 

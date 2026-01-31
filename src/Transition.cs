@@ -108,11 +108,8 @@ public class Transition(ITransitionType transitionMethod)
     /// </summary>
     public void Add(object target, string strPropertyName, object destinationValue)
     {
-        // We get the property info...
         var targetType = target.GetType();
-        var propertyInfo = targetType.GetProperty(strPropertyName);
-        if (propertyInfo == null)
-            throw new ArgumentException($"Object: {target} does not have the property: {strPropertyName}");
+        var propertyInfo = targetType.GetProperty(strPropertyName) ?? throw new ArgumentException($"Object: {target} does not have the property: {strPropertyName}");
 
         // We check that we support the property type...
         var propertyType = propertyInfo.PropertyType;

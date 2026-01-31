@@ -17,5 +17,5 @@ public interface ITransitionType
     /// You should return (in an out parameter) whether the transition has completed.
     /// (This may not be at the same time as the percentage has moved to 100%.)
     /// </summary>
-    void OnTimer(int iTime, out float percentage, out bool bCompleted);
+    void OnTimer(int time, out float percentage, out bool completed);
 }

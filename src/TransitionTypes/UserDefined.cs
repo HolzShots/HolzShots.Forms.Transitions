@@ -69,31 +69,30 @@ public class UserDefined : ITransitionType
     /// </summary>
     public void OnTimer(int time, out float percentage, out bool completed)
     {
-        var dTransitionTimeFraction = time / _transitionTime;
-
+        var transitionTimeFraction = time / _transitionTime;
         GetElementInfo(
-            dTransitionTimeFraction,
-            out var dElementStartTime,
-            out var dElementEndTime,
+            transitionTimeFraction,
+            out var elementStartTime,
+            out var elementEndTime,
             out var elementStartValue,
             out var elementEndValue,
-            out InterpolationMethod eInterpolationMethod
+            out InterpolationMethod interpolationMethod
         );
 
         // We find how far through this element we are as a fraction...
-        var dElementInterval = dElementEndTime - dElementStartTime;
-        var dElementElapsedTime = dTransitionTimeFraction - dElementStartTime;
-        var dElementTimeFraction = dElementElapsedTime / dElementInterval;
+        var elementInterval = elementEndTime - elementStartTime;
+        var elementElapsedTime = transitionTimeFraction - elementStartTime;
+        var elementTimeFraction = elementElapsedTime / elementInterval;
 
         // We convert the time-fraction to an fraction of the movement within the
         // element using the interpolation method...
-        var elementDistance = eInterpolationMethod switch
+        var elementDistance = interpolationMethod switch
         {
-            InterpolationMethod.Linear => dElementTimeFraction,
-            InterpolationMethod.Acceleration => Utility.ConvertLinearToAcceleration(dElementTimeFraction),
-            InterpolationMethod.Deceleration => Utility.ConvertLinearToDeceleration(dElementTimeFraction),
-            InterpolationMethod.EaseInEaseOut => Utility.ConvertLinearToEaseInEaseOut(dElementTimeFraction),
-            _ => throw new Exception("Interpolation method not handled: " + eInterpolationMethod.ToString()),
+            InterpolationMethod.Linear => elementTimeFraction,
+            InterpolationMethod.Acceleration => Utility.ConvertLinearToAcceleration(elementTimeFraction),
+            InterpolationMethod.Deceleration => Utility.ConvertLinearToDeceleration(elementTimeFraction),
+            InterpolationMethod.EaseInEaseOut => Utility.ConvertLinearToEaseInEaseOut(elementTimeFraction),
+            _ => throw new Exception("Interpolation method not handled: " + interpolationMethod.ToString()),
         };
 
         // We now know how far through the transition we have moved, so we can interpolate

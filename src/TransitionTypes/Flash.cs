@@ -12,16 +12,16 @@ public class Flash : UserDefined
     /// <summary>
     /// You specify the number of bounces and the time taken for each bounce.
     /// </summary>
-    public Flash(int iNumberOfFlashes, int iFlashTime)
+    public Flash(int numberOfFlashes, int flashTime)
     {
         // This class is derived from the user-defined transition type.
         // Here we set up a custom "user-defined" transition for the
         // number of flashes passed in...
-        var dFlashInterval = 100.0f / iNumberOfFlashes;
+        var dFlashInterval = 100.0f / numberOfFlashes;
 
         // We set up the elements of the user-defined transition...
         var elements = new List<TransitionElement>();
-        for (int i = 0; i < iNumberOfFlashes; ++i)
+        for (int i = 0; i < numberOfFlashes; ++i)
         {
             // Each flash consists of two elements: one going to the destination value,
             // and another going back again...
@@ -32,7 +32,7 @@ public class Flash : UserDefined
             elements.Add(new(flashEndTime, 0, InterpolationMethod.EaseInEaseOut));
         }
 
-        Setup(elements, iFlashTime * iNumberOfFlashes);
+        Setup(elements, flashTime * numberOfFlashes);
     }
 
     #endregion

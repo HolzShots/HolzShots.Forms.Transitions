@@ -5,23 +5,16 @@
 /// </summary>
 public class Acceleration : ITransitionType
 {
-    #region Public methods
-
+    private readonly float _transitionTime;
     /// <summary>
     /// Constructor. You pass in the time that the transition
     /// will take (in milliseconds).
     /// </summary>
     public Acceleration(int transitionTime)
     {
-        if (transitionTime <= 0)
-            throw new Exception("Transition time must be greater than zero.");
-
+        ArgumentOutOfRangeException.ThrowIfLessThan(transitionTime, 0);
         _transitionTime = transitionTime;
     }
-
-    #endregion
-
-    #region ITransitionMethod Members
 
     /// <summary>
     /// Works out the percentage completed given the time passed in.
@@ -31,7 +24,7 @@ public class Acceleration : ITransitionType
     /// at t=1.0 is 2, so the formula just becomes:
     ///   s = t^2
     /// </summary>
-    public void OnTimer(int time, out float percentage, out bool bCompleted)
+    public void OnTimer(int time, out float percentage, out bool completed)
     {
         // We find the percentage time elapsed...
         var elapsed = time / _transitionTime;
@@ -39,19 +32,11 @@ public class Acceleration : ITransitionType
         if (elapsed >= 1.0)
         {
             percentage = 1.0f;
-            bCompleted = true;
+            completed = true;
         }
         else
         {
-            bCompleted = false;
+            completed = false;
         }
     }
-
-    #endregion
-
-    #region Private data
-
-    private readonly float _transitionTime;
-
-    #endregion
 }

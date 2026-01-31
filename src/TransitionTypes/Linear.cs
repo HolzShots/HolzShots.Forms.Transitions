@@ -14,9 +14,7 @@ public class Linear : ITransitionType
     /// </summary>
     public Linear(int transitionTime)
     {
-        if (transitionTime <= 0)
-            throw new Exception("Transition time must be greater than zero.");
-
+        ArgumentOutOfRangeException.ThrowIfLessThan(transitionTime, 0);
         _transitionTime = transitionTime;
     }
 
@@ -27,9 +25,9 @@ public class Linear : ITransitionType
     /// <summary>
     /// We return the percentage completed.
     /// </summary>
-    public void OnTimer(int iTime, out float percentage, out bool completed)
+    public void OnTimer(int time, out float percentage, out bool completed)
     {
-        percentage = iTime / _transitionTime;
+        percentage = time / _transitionTime;
         if (percentage >= 1.0)
         {
             percentage = 1.0f;

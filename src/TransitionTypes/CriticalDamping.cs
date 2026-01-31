@@ -14,9 +14,7 @@ public class CriticalDamping : ITransitionType
     /// </summary>
     public CriticalDamping(int transitionTime)
     {
-        if (transitionTime <= 0)
-            throw new Exception("Transition time must be greater than zero.");
-
+        ArgumentOutOfRangeException.ThrowIfLessThan(transitionTime, 0);
         _transitionTime = transitionTime;
     }
 

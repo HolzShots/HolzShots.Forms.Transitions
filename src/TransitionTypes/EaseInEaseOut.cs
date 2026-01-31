@@ -12,12 +12,10 @@ public class EaseInEaseOut : ITransitionType
     /// Constructor. You pass in the time that the transition
     /// will take (in milliseconds).
     /// </summary>
-    public EaseInEaseOut(int iTransitionTime)
+    public EaseInEaseOut(int transitionTime)
     {
-        if (iTransitionTime <= 0)
-            throw new Exception("Transition time must be greater than zero.");
-
-        _transitionTime = iTransitionTime;
+        ArgumentOutOfRangeException.ThrowIfLessThan(transitionTime, 0);
+        _transitionTime = transitionTime;
     }
 
     #endregion
