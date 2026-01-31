@@ -6,11 +6,8 @@ internal class TransitionChain
 
     public TransitionChain(params Transition[] transitions)
     {
-        // We store the list of transitions...
         foreach (var transition in transitions)
             _listTransitions.AddLast(transition);
-
-        // We start running them...
         RunNextTransition();
     }
 
@@ -54,7 +51,6 @@ internal class TransitionChain
 
     #region Private data
 
-    // The list of transitions in the chain...
     private readonly LinkedList<Transition> _listTransitions = new();
 
     #endregion

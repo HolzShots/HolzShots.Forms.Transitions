@@ -162,7 +162,6 @@ internal class TransitionManager
 
     #region Private data
 
-    // The singleton instance...
     private static TransitionManager _instance;
 
     // The collection of transitions we're managing. (This should really be a set.)

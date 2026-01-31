@@ -36,9 +36,6 @@ public class UserDefined : ITransitionType
 {
     #region Public methods
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public UserDefined() { }
 
     /// <summary>

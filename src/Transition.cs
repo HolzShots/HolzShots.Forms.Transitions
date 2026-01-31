@@ -141,9 +141,6 @@ public class Transition(ITransitionType transitionMethod)
         }
     }
 
-    /// <summary>
-    /// Starts the transition.
-    /// </summary>
     public void Run()
     {
         // We find the current start values for the properties we
@@ -173,9 +170,7 @@ public class Transition(ITransitionType transitionMethod)
     /// </summary>
     internal List<TransitionedPropertyInfo> TransitionedProperties { get; } = [];
 
-    /// <summary>
-    /// We remove the property with the info passed in from the transition.
-    /// </summary>
+    /// <summary>We remove the property with the info passed in from the transition.</summary>
     internal void RemoveProperty(TransitionedPropertyInfo info)
     {
         lock (_lock)
@@ -184,9 +179,6 @@ public class Transition(ITransitionType transitionMethod)
         }
     }
 
-    /// <summary>
-    /// Called when the transition timer ticks.
-    /// </summary>
     internal void OnTimer()
     {
         // When the timer ticks we:
