@@ -11,12 +11,12 @@ public class Acceleration : ITransitionType
     /// Constructor. You pass in the time that the transition
     /// will take (in milliseconds).
     /// </summary>
-    public Acceleration(int iTransitionTime)
+    public Acceleration(int transitionTime)
     {
-        if (iTransitionTime <= 0)
+        if (transitionTime <= 0)
             throw new Exception("Transition time must be greater than zero.");
 
-        _transitionTime = iTransitionTime;
+        _transitionTime = transitionTime;
     }
 
     #endregion
@@ -31,14 +31,14 @@ public class Acceleration : ITransitionType
     /// at t=1.0 is 2, so the formula just becomes:
     ///   s = t^2
     /// </summary>
-    public void OnTimer(int iTime, out double dPercentage, out bool bCompleted)
+    public void OnTimer(int iTime, out double percentage, out bool bCompleted)
     {
         // We find the percentage time elapsed...
         var dElapsed = iTime / _transitionTime;
-        dPercentage = dElapsed * dElapsed;
+        percentage = dElapsed * dElapsed;
         if (dElapsed >= 1.0)
         {
-            dPercentage = 1.0;
+            percentage = 1.0;
             bCompleted = true;
         }
         else

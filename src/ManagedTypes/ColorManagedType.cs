@@ -26,7 +26,7 @@ internal class ColorManagedType : IManagedType
     /// <summary>
     /// Creates an intermediate value for the colors depending on the percentage passed in.
     /// </summary>
-    public object GetIntermediateValue(object start, object end, double dPercentage)
+    public object GetIntermediateValue(object start, object end, double percentage)
     {
         var startColor = (Color)start;
         var endColor = (Color)end;
@@ -42,10 +42,10 @@ internal class ColorManagedType : IManagedType
         int iEnd_B = endColor.B;
         int iEnd_A = endColor.A;
 
-        int new_R = Utility.Interpolate(iStart_R, iEnd_R, dPercentage);
-        int new_G = Utility.Interpolate(iStart_G, iEnd_G, dPercentage);
-        int new_B = Utility.Interpolate(iStart_B, iEnd_B, dPercentage);
-        int new_A = Utility.Interpolate(iStart_A, iEnd_A, dPercentage);
+        int new_R = Utility.Interpolate(iStart_R, iEnd_R, percentage);
+        int new_G = Utility.Interpolate(iStart_G, iEnd_G, percentage);
+        int new_B = Utility.Interpolate(iStart_B, iEnd_B, percentage);
+        int new_A = Utility.Interpolate(iStart_A, iEnd_A, percentage);
 
         return Color.FromArgb(new_A, new_R, new_G, new_B);
     }

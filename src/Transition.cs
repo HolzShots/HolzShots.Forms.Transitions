@@ -198,7 +198,7 @@ public class Transition(ITransitionType transitionMethod)
         int iElapsedTime = (int)_stopwatch.ElapsedMilliseconds;
 
         // b.
-        _transitionMethod.OnTimer(iElapsedTime, out double dPercentage, out bool bCompleted);
+        _transitionMethod.OnTimer(iElapsedTime, out double percentage, out bool bCompleted);
 
         // We take a copy of the list of properties we are transitioning, as
         // they can be changed by another thread while this method is running...
@@ -215,7 +215,7 @@ public class Transition(ITransitionType transitionMethod)
         foreach (TransitionedPropertyInfo info in listTransitionedProperties)
         {
             // We get the current value for this property...
-            var value = info.ManagedType.GetIntermediateValue(info.StartValue, info.EndValue, dPercentage);
+            var value = info.ManagedType.GetIntermediateValue(info.StartValue, info.EndValue, percentage);
 
             // We set it...
             var args = new PropertyUpdateArgs(info.Target, info.PropertyInfo, value);

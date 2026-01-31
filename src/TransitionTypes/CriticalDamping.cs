@@ -26,15 +26,15 @@ public class CriticalDamping : ITransitionType
 
     /// <summary>
     /// </summary>
-    public void OnTimer(int iTime, out double dPercentage, out bool bCompleted)
+    public void OnTimer(int iTime, out double percentage, out bool bCompleted)
     {
         // We find the percentage time elapsed...
         double dElapsed = iTime / _transitionTime;
-        dPercentage = (1.0 - Math.Exp(-1.0 * dElapsed * 5)) / 0.993262053;
+        percentage = (1.0 - Math.Exp(-1.0 * dElapsed * 5)) / 0.993262053;
 
         if (dElapsed >= 1.0)
         {
-            dPercentage = 1.0;
+            percentage = 1.0;
             bCompleted = true;
         }
         else

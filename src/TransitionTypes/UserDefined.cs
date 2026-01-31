@@ -70,17 +70,18 @@ public class UserDefined : ITransitionType
     /// <summary>
     /// Called to find the value for the movement of properties for the time passed in.
     /// </summary>
-    public void OnTimer(int iTime, out double dPercentage, out bool bCompleted)
+    public void OnTimer(int iTime, out double percentage, out bool bCompleted)
     {
         double dTransitionTimeFraction = iTime / _transitionTime;
 
-        // We find the information for the element that we are currently processing...
-        double dElementStartTime;
-        double dElementEndTime;
-        double dElementStartValue;
-        double dElementEndValue;
-        InterpolationMethod eInterpolationMethod;
-        GetElementInfo(dTransitionTimeFraction, out dElementStartTime, out dElementEndTime, out dElementStartValue, out dElementEndValue, out eInterpolationMethod);
+        GetElementInfo(
+            dTransitionTimeFraction,
+            out double dElementStartTime,
+            out double dElementEndTime,
+            out double dElementStartValue,
+            out double dElementEndValue,
+            out InterpolationMethod eInterpolationMethod
+        );
 
         // We find how far through this element we are as a fraction...
         double dElementInterval = dElementEndTime - dElementStartTime;
@@ -89,32 +90,18 @@ public class UserDefined : ITransitionType
 
         // We convert the time-fraction to an fraction of the movement within the
         // element using the interpolation method...
-        double dElementDistance;
-        switch (eInterpolationMethod)
+        var dElementDistance = eInterpolationMethod switch
         {
-            case InterpolationMethod.Linear:
-                dElementDistance = dElementTimeFraction;
-                break;
-
-            case InterpolationMethod.Acceleration:
-                dElementDistance = Utility.ConvertLinearToAcceleration(dElementTimeFraction);
-                break;
-
-            case InterpolationMethod.Deceleration:
-                dElementDistance = Utility.ConvertLinearToDeceleration(dElementTimeFraction);
-                break;
-
-            case InterpolationMethod.EaseInEaseOut:
-                dElementDistance = Utility.ConvertLinearToEaseInEaseOut(dElementTimeFraction);
-                break;
-
-            default:
-                throw new Exception("Interpolation method not handled: " + eInterpolationMethod.ToString());
-        }
+            InterpolationMethod.Linear => dElementTimeFraction,
+            InterpolationMethod.Acceleration => Utility.ConvertLinearToAcceleration(dElementTimeFraction),
+            InterpolationMethod.Deceleration => Utility.ConvertLinearToDeceleration(dElementTimeFraction),
+            InterpolationMethod.EaseInEaseOut => Utility.ConvertLinearToEaseInEaseOut(dElementTimeFraction),
+            _ => throw new Exception("Interpolation method not handled: " + eInterpolationMethod.ToString()),
+        };
 
         // We now know how far through the transition we have moved, so we can interpolate
         // the start and end values by this amount...
-        dPercentage = Utility.Interpolate(dElementStartValue, dElementEndValue, dElementDistance);
+        percentage = Utility.Interpolate(dElementStartValue, dElementEndValue, dElementDistance);
 
         // Has the transition completed?
         if (iTime >= _transitionTime)
@@ -122,7 +109,7 @@ public class UserDefined : ITransitionType
             // The transition has completed, so we make sure that
             // it is at its final value...
             bCompleted = true;
-            dPercentage = dElementEndValue;
+            percentage = dElementEndValue;
         }
         else
         {

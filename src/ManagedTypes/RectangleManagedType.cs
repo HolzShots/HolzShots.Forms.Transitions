@@ -25,15 +25,15 @@ internal class RectangleManagedType : IManagedType
     /// <summary>
     /// Creates an intermediate value for the rectangles depending on the percentage passed in.
     /// </summary>
-    public object GetIntermediateValue(object start, object end, double dPercentage)
+    public object GetIntermediateValue(object start, object end, double percentage)
     {
         var startRectangle = (Rectangle)start;
         var endRectangle = (Rectangle)end;
 
-        int newX = Utility.Interpolate(startRectangle.X, endRectangle.X, dPercentage);
-        int newY = Utility.Interpolate(startRectangle.Y, endRectangle.Y, dPercentage);
-        int newWidth = Utility.Interpolate(startRectangle.Width, endRectangle.Width, dPercentage);
-        int newHeight = Utility.Interpolate(startRectangle.Height, endRectangle.Height, dPercentage);
+        int newX = Utility.Interpolate(startRectangle.X, endRectangle.X, percentage);
+        int newY = Utility.Interpolate(startRectangle.Y, endRectangle.Y, percentage);
+        int newWidth = Utility.Interpolate(startRectangle.Width, endRectangle.Width, percentage);
+        int newHeight = Utility.Interpolate(startRectangle.Height, endRectangle.Height, percentage);
 
         return new Rectangle(newX, newY, newWidth, newHeight);
     }

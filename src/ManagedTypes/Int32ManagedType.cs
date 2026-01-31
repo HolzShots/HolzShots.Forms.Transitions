@@ -20,7 +20,7 @@ internal class Int32ManagedType : IManagedType
     /// <summary>
     /// Returns the value between the start and end for the percentage passed in.
     /// </summary>
-    public object GetIntermediateValue(object start, object end, double dPercentage) => Utility.Interpolate((int)start, (int)end, dPercentage);
+    public object GetIntermediateValue(object start, object end, double percentage) => Utility.Interpolate((int)start, (int)end, percentage);
 
     #endregion
 }

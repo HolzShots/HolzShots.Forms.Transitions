@@ -24,13 +24,13 @@ internal class PointManagedType : IManagedType
     /// <summary>
     /// Creates an intermediate value for the points depending on the percentage passed in.
     /// </summary>
-    public object GetIntermediateValue(object start, object end, double dPercentage)
+    public object GetIntermediateValue(object start, object end, double percentage)
     {
         var startPoint = (Point)start;
         var endPoint = (Point)end;
 
-        int newX = Utility.Interpolate(startPoint.X, endPoint.X, dPercentage);
-        int newY = Utility.Interpolate(startPoint.Y, endPoint.Y, dPercentage);
+        int newX = Utility.Interpolate(startPoint.X, endPoint.X, percentage);
+        int newY = Utility.Interpolate(startPoint.Y, endPoint.Y, percentage);
 
         return new Point(newX, newY);
     }
