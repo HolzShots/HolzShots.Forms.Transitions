@@ -116,6 +116,14 @@ public class UserDefined : ITransitionType
         // it will be the same one again, but it may have moved to a subsequent
         // on (maybe even skipping elements if enough time has passed)...
         int count = _elements.Count;
+
+        // The hint may also be too far ahead: this happens when the same
+        // transition-type instance is reused for a new transition, or a
+        // transition is run again. So we first move back while the time is
+        // before the end of the previous element...
+        while (_currentElement > 0 && timeFraction < _elements[_currentElement - 1].EndTime / 100.0f)
+            --_currentElement;
+
         for (; _currentElement < count; ++_currentElement)
         {
             var element = _elements[_currentElement];
