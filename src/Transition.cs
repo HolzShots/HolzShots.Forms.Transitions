@@ -97,6 +97,23 @@ public class Transition(ITransitionType transitionMethod)
 
         var managedType = MapManagedTypes[propertyType];
 
+        // The destination value has to be of the exact property type, as the
+        // managed types unbox it directly. Callers often pass e.g. an int literal
+        // for a double property, which would otherwise only fail with an
+        // InvalidCastException on the timer thread. So we convert it here...
+        ArgumentNullException.ThrowIfNull(destinationValue);
+        if (destinationValue.GetType() != propertyType)
+        {
+            try
+            {
+                destinationValue = Convert.ChangeType(destinationValue, propertyType);
+            }
+            catch (Exception ex) when (ex is InvalidCastException or FormatException or OverflowException)
+            {
+                throw new ArgumentException($"Destination value of type {destinationValue.GetType()} cannot be converted to the type of property {strPropertyName}: {propertyType}", nameof(destinationValue), ex);
+            }
+        }
+
         // We can manage this type, so we store the information for the
         // transition of this property...
         var info = new TransitionedPropertyInfo
