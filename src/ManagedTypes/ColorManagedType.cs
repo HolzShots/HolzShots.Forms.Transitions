@@ -25,6 +25,11 @@ internal class ColorManagedType : IManagedType
 
         var res = Utility.Interpolate(startVector, endVector, percentage);
 
+        // Transition types may overshoot (percentage > 1) or undershoot (percentage < 0),
+        // which would push components out of the valid 0..255 range and make
+        // Color.FromArgb throw. So we clamp them...
+        res = Vector4.Clamp(res, Vector4.Zero, new Vector4(255f));
+
         return Color.FromArgb((int)res.X, (int)res.Y, (int)res.Z, (int)res.W);
     }
 }
