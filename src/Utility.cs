@@ -1,11 +1,16 @@
 ﻿using System.ComponentModel;
 using System.Numerics;
+using System.Reflection;
 
 namespace HolzShots.Forms.Transitions;
 
 internal class Utility
 {
     /// <summary>Returns the value of the property passed in.</summary>
+    /// <exception cref="NullReferenceException"><paramref name="target"/> is <c>null</c>.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="propertyName"/> is <c>null</c>.</exception>
+    /// <exception cref="Exception"><paramref name="target"/> does not have the property.</exception>
+    /// <exception cref="TargetInvocationException">The property getter throws.</exception>
     public static object GetValue(object target, string propertyName)
     {
         Type targetType = target.GetType();
@@ -14,6 +19,12 @@ internal class Utility
     }
 
     /// <summary>Sets the value of the property passed in.</summary>
+    /// <exception cref="NullReferenceException"><paramref name="target"/> is <c>null</c>.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="propertyName"/> is <c>null</c>.</exception>
+    /// <exception cref="Exception"><paramref name="target"/> does not have the property.</exception>
+    /// <exception cref="ArgumentException"><paramref name="value"/> cannot be assigned to the property.</exception>
+    /// <exception cref="MethodAccessException">The property has no accessible setter.</exception>
+    /// <exception cref="TargetInvocationException">The property setter throws.</exception>
     public static void SetValue(object target, string propertyName, object value)
     {
         Type targetType = target.GetType();

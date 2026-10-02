@@ -44,11 +44,25 @@ public class UserDefined : ITransitionType
     /// Constructor. You pass in the list of TransitionElements and the total time
     /// (in milliseconds) for the transition.
     /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="transitionTime"/> is zero or negative.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="elements"/> is <c>null</c>.</exception>
+    /// <exception cref="ArgumentException">
+    /// <paramref name="elements"/> is empty, or its end times are not strictly increasing and greater than zero.
+    /// </exception>
     public UserDefined(IList<TransitionElement> elements, int transitionTime)
     {
         Setup(elements, transitionTime);
     }
 
+    /// <summary>
+    /// Sets the list of TransitionElements and the total time (in milliseconds)
+    /// for the transition. Also resets the current element.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="transitionTime"/> is zero or negative.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="elements"/> is <c>null</c>.</exception>
+    /// <exception cref="ArgumentException">
+    /// <paramref name="elements"/> is empty, or its end times are not strictly increasing and greater than zero.
+    /// </exception>
     public void Setup(IList<TransitionElement> elements, int transitionTime)
     {
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(transitionTime);
@@ -73,6 +87,8 @@ public class UserDefined : ITransitionType
         _currentElement = 0;
     }
 
+    /// <exception cref="NullReferenceException">The instance was created with the parameterless constructor and <see cref="Setup"/> was not called.</exception>
+    /// <exception cref="Exception">An element has an <see cref="InterpolationMethod"/> that is not handled.</exception>
     public void OnTimer(int time, out float percentage, out bool completed)
     {
         var transitionTimeFraction = time / _transitionTime;

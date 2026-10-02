@@ -7,6 +7,8 @@
 /// </summary>
 public class ThrowAndCatch : UserDefined
 {
+    /// <summary>Constructor. You pass in the time that the transition will take (in milliseconds).</summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="transitionTime"/> is zero or negative.</exception>
     public ThrowAndCatch(int transitionTime)
     {
         // We create a custom "user-defined" transition to do the work...

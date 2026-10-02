@@ -7,6 +7,9 @@
 public class CriticalDamping : ITransitionType
 {
     private readonly float _transitionTime;
+
+    /// <summary>Constructor. You pass in the time that the transition will take (in milliseconds).</summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="transitionTime"/> is zero or negative.</exception>
     public CriticalDamping(int transitionTime)
     {
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(transitionTime);

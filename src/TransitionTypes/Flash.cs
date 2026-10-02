@@ -10,6 +10,10 @@ public class Flash : UserDefined
     /// <summary>
     /// You specify the number of bounces and the time taken for each bounce.
     /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// <paramref name="numberOfFlashes"/> is zero or negative, or the total time
+    /// (<paramref name="flashTime"/> multiplied by <paramref name="numberOfFlashes"/>) is zero or negative.
+    /// </exception>
     public Flash(int numberOfFlashes, int flashTime)
     {
         // This class is derived from the user-defined transition type.

@@ -60,6 +60,14 @@ public class Transition(ITransitionType transitionMethod)
     public event EventHandler<Args> TransitionCompletedEvent;
 
     /// <summary>Creates and immediately runs a transition on the property passed in.</summary>
+    /// <exception cref="NullReferenceException"><paramref name="target"/> is <c>null</c>.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="strPropertyName"/> or <paramref name="destinationValue"/> is <c>null</c>.</exception>
+    /// <exception cref="ArgumentException">
+    /// <paramref name="target"/> does not have the property, or <paramref name="destinationValue"/>
+    /// cannot be converted to the property type.
+    /// </exception>
+    /// <exception cref="NotSupportedException">The property type is not supported, or the property is not both readable and writable.</exception>
+    /// <exception cref="TargetInvocationException">The property getter throws.</exception>
     public static void Run(object target, string strPropertyName, object destinationValue, ITransitionType transitionMethod)
     {
         var t = new Transition(transitionMethod);
@@ -71,6 +79,15 @@ public class Transition(ITransitionType transitionMethod)
     /// Sets the property passed in to the initial value passed in, then creates and
     /// immediately runs a transition on it.
     /// </summary>
+    /// <exception cref="NullReferenceException"><paramref name="target"/> is <c>null</c>.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="strPropertyName"/> or <paramref name="destinationValue"/> is <c>null</c>.</exception>
+    /// <exception cref="Exception"><paramref name="target"/> does not have the property (thrown when setting the initial value).</exception>
+    /// <exception cref="ArgumentException">
+    /// <paramref name="initialValue"/> cannot be assigned to the property, or <paramref name="destinationValue"/>
+    /// cannot be converted to the property type.
+    /// </exception>
+    /// <exception cref="NotSupportedException">The property type is not supported, or the property is not both readable and writable.</exception>
+    /// <exception cref="TargetInvocationException">The property getter or setter throws.</exception>
     public static void Run(object target, string strPropertyName, object initialValue, object destinationValue, ITransitionType transitionMethod)
     {
         Utility.SetValue(target, strPropertyName, initialValue);
@@ -78,9 +95,18 @@ public class Transition(ITransitionType transitionMethod)
     }
 
     /// <summary>Creates a TransitionChain and runs it.</summary>
+    /// <exception cref="NullReferenceException"><paramref name="transitions"/> is <c>null</c>, or contains <c>null</c>.</exception>
+    /// <exception cref="TargetInvocationException">A property getter throws when the first transition starts.</exception>
     public static void RunChain(params Transition[] transitions) => _ = new TransitionChain(transitions);
 
     /// <summary>Adds a property that should be animated as part of this transition.</summary>
+    /// <exception cref="NullReferenceException"><paramref name="target"/> is <c>null</c>.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="strPropertyName"/> or <paramref name="destinationValue"/> is <c>null</c>.</exception>
+    /// <exception cref="ArgumentException">
+    /// <paramref name="target"/> does not have the property, or <paramref name="destinationValue"/>
+    /// cannot be converted to the property type.
+    /// </exception>
+    /// <exception cref="NotSupportedException">The property type is not supported, or the property is not both readable and writable.</exception>
     public void Add(object target, string strPropertyName, object destinationValue)
     {
         var targetType = target.GetType();
@@ -130,6 +156,8 @@ public class Transition(ITransitionType transitionMethod)
         }
     }
 
+    /// <summary>Starts the transition.</summary>
+    /// <exception cref="TargetInvocationException">A property getter throws when the start value is read.</exception>
     public void Run()
     {
         // We find the current start values for the properties we
