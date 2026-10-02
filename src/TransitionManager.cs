@@ -100,30 +100,33 @@ internal class TransitionManager
     {
         // We turn the timer off while we process the tick, in case the
         // actions take longer than the tick itself...
-        if (_timer == null)
-        {
-            return;
-        }
         _timer.Enabled = false;
 
-        IList<Transition> listTransitions;
-        lock (_lock)
+        try
         {
-            // We take a copy of the collection of transitions as elements
-            // might be removed as we iterate through it...
-            listTransitions = [];
-            foreach (KeyValuePair<Transition, bool> pair in _transitions)
+            IList<Transition> listTransitions;
+            lock (_lock)
             {
-                listTransitions.Add(pair.Key);
+                // We take a copy of the collection of transitions as elements
+                // might be removed as we iterate through it...
+                listTransitions = [];
+                foreach (KeyValuePair<Transition, bool> pair in _transitions)
+                {
+                    listTransitions.Add(pair.Key);
+                }
             }
+
+            // We tick the timer for each transition we're managing...
+            foreach (Transition transition in listTransitions)
+                transition.OnTimer();
         }
-
-        // We tick the timer for each transition we're managing...
-        foreach (Transition transition in listTransitions)
-            transition.OnTimer();
-
-        // We restart the timer...
-        _timer.Enabled = true;
+        finally
+        {
+            // We restart the timer. This has to happen even if a transition threw,
+            // as System.Timers.Timer swallows exceptions silently and a disabled
+            // timer would freeze every transition for the rest of the process...
+            _timer.Enabled = true;
+        }
     }
 
     private void OnTransitionCompleted(object sender, Transition.Args e)
