@@ -15,6 +15,7 @@ public class Flash : UserDefined
         // This class is derived from the user-defined transition type.
         // Here we set up a custom "user-defined" transition for the
         // number of flashes passed in...
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(numberOfFlashes);
         var dFlashInterval = 100.0f / numberOfFlashes;
 
         // We set up the elements of the user-defined transition...

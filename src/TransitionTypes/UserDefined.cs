@@ -52,12 +52,25 @@ public class UserDefined : ITransitionType
     public void Setup(IList<TransitionElement> elements, int transitionTime)
     {
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(transitionTime);
-        _elements = elements;
-        _transitionTime = transitionTime;
+        ArgumentNullException.ThrowIfNull(elements);
 
         // We check that the elements list has some members...
         if (elements.Count == 0)
-            throw new Exception("The list of elements passed to the constructor of TransitionType_UserDefined had zero elements. It must have at least one element.");
+            throw new ArgumentException("The list of elements must have at least one element.", nameof(elements));
+
+        // End times must be strictly increasing and start above zero. Otherwise an
+        // element would have a zero-length interval and OnTimer would divide by zero...
+        var previousEndTime = 0.0f;
+        foreach (var element in elements)
+        {
+            if (!(element.EndTime > previousEndTime))
+                throw new ArgumentException($"Element end times must be strictly increasing and greater than zero, but found end time {element.EndTime} after {previousEndTime}.", nameof(elements));
+            previousEndTime = element.EndTime;
+        }
+
+        _elements = elements;
+        _transitionTime = transitionTime;
+        _currentElement = 0;
     }
 
     public void OnTimer(int time, out float percentage, out bool completed)
