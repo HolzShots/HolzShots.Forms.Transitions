@@ -12,7 +12,7 @@ public class Acceleration : ITransitionType
     /// </summary>
     public Acceleration(int transitionTime)
     {
-        ArgumentOutOfRangeException.ThrowIfLessThan(transitionTime, 0);
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(transitionTime);
         _transitionTime = transitionTime;
     }
 

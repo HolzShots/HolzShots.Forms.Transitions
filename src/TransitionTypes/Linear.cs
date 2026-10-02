@@ -9,7 +9,7 @@ public class Linear : ITransitionType
     private readonly float _transitionTime;
     public Linear(int transitionTime)
     {
-        ArgumentOutOfRangeException.ThrowIfLessThan(transitionTime, 0);
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(transitionTime);
         _transitionTime = transitionTime;
     }
 

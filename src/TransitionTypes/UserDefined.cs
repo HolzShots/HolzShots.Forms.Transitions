@@ -51,6 +51,7 @@ public class UserDefined : ITransitionType
 
     public void Setup(IList<TransitionElement> elements, int transitionTime)
     {
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(transitionTime);
         _elements = elements;
         _transitionTime = transitionTime;
 

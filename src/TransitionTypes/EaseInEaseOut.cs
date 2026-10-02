@@ -10,7 +10,7 @@ public class EaseInEaseOut : ITransitionType
     private readonly float _transitionTime;
     public EaseInEaseOut(int transitionTime)
     {
-        ArgumentOutOfRangeException.ThrowIfLessThan(transitionTime, 0);
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(transitionTime);
         _transitionTime = transitionTime;
     }
 

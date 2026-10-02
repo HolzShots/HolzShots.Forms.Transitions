@@ -9,7 +9,7 @@ public class CriticalDamping : ITransitionType
     private readonly float _transitionTime;
     public CriticalDamping(int transitionTime)
     {
-        ArgumentOutOfRangeException.ThrowIfLessThan(transitionTime, 0);
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(transitionTime);
         _transitionTime = transitionTime;
     }
 

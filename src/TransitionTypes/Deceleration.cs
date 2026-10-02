@@ -9,7 +9,7 @@ public class Deceleration : ITransitionType
     private readonly float _transitionTime;
     public Deceleration(int transitionTime)
     {
-        ArgumentOutOfRangeException.ThrowIfLessThan(transitionTime, 0);
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(transitionTime);
         _transitionTime = transitionTime;
     }
 
