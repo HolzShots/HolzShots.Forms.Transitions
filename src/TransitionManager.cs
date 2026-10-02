@@ -47,9 +47,15 @@ internal class TransitionManager
     /// </summary>
     private void RemoveDuplicates(Transition transition)
     {
-        // We look through the set of transitions we're currently managing...
+        // We look through the set of transitions we're currently managing.
+        // The transition itself may already be registered if Run() is called
+        // again while it is running. Comparing it with itself would remove
+        // all of its properties, so we skip it...
         foreach (KeyValuePair<Transition, bool> pair in _transitions)
-            RemoveDuplicates(transition, pair.Key);
+        {
+            if (!ReferenceEquals(pair.Key, transition))
+                RemoveDuplicates(transition, pair.Key);
+        }
     }
 
     /// <summary>
